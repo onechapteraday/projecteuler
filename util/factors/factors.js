@@ -4,12 +4,15 @@
 function factors(n){
   if(!n || n<2)
     return [];
-  var f = new Array();
-  for(var i = 2; i <=n; i++){
-    while(n%i === 0){
+  var f = new Array(),
+      r = n;
+  for(var i = 2; i <= Math.sqrt(n); i++){
+    while(r%i === 0){
       f.push(i);
-      n /= i;
+      r /= i;
     }
+    if(r==1) break;
   }
+  if(r!=1) f.push(r);
   return f;
 }

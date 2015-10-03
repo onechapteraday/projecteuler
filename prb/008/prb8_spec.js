@@ -1,14 +1,8 @@
-describe("Do asynchronous spec to check problem #8", function() {
-  // Spy on console.log
-  console.log = jasmine.createSpy('log');
-  prb8();
-
-  it("finds the correct result", function(done) {
-    // Do setTimeout just to wait the function to be done
-    setTimeout(function() {
+describe("Problem #8 function", function() {
+  it("finds the correct result", function() {
+    readFile('prb8.txt', function(data){
+      expect(prb8(data)).toEqual(23514624000);
       done();
-    }, 0);
-    // Check console.log with result
-    expect(console.log).toHaveBeenCalledWith(23514624000);
+    });
   });
 });

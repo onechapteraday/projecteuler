@@ -3,23 +3,20 @@
  * Find the thirteen adjacent digits in the 1000-digit number that have the 
  * greatest product. What is the value of this product? */
 
-function prb8(){
+function prb8(input){
   var product = 0,
       innerproduct = 1,
       adjacent = 13,
       grid = new Array();
 
-  readFile('prb8.txt', function(response){
-    response = response.replace(/[\n\r]+/g, '');
-    grid = response.split('');
-    for(var j = 0; j < 1000-adjacent; j++){
-      for(var k = 0; k < adjacent; k++)
-        innerproduct *= parseInt(grid[j+k]);
-      if(innerproduct > product) product = innerproduct;
-      innerproduct = 1;
-    }
-    console.log(product);
-  });
+  input = input.replace(/[\n\r]+/g, '');
+  grid = input.split('');
+  for(var j = 0; j < 1000-adjacent; j++){
+    for(var k = 0; k < adjacent; k++)
+      innerproduct *= parseInt(grid[j+k]);
+    if(innerproduct > product) product = innerproduct;
+    innerproduct = 1;
+  }
 
-  return true;
+  return product;
 }

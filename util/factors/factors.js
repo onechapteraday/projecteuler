@@ -6,13 +6,16 @@ function factors(n){
     return [];
   var f = new Array(),
       r = n;
-  for(var i = 2; i <= Math.sqrt(n); i++){
+  while(r%2 === 0){
+    r /= 2;
+    f.push(2);
+  }
+  for(var i = 3; r>1 && i <= Math.sqrt(n); i+=2){
     while(r%i === 0){
       f.push(i);
       r /= i;
     }
-    if(r==1) break;
   }
-  if(r!=1) f.push(r);
+  if(r!==1) f.push(r);
   return f;
 }

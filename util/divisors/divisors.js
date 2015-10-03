@@ -6,13 +6,14 @@ function divisors(n){
   var f = factors(n),
       sum = 1,
       product = 1;
-  for(var i = 0; i < f.length; i++){
-    if(f[i]==f[i+1]){
+  for(var i = 0; i < f.length-1; i++){
+    if(f[i]==f[i+1])
       sum += 1;
-    }else{
+    else {
       product *= sum + 1;
       sum = 1;
     }
   }
+  product *= sum + 1;
   return product;
 }

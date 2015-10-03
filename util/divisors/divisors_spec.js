@@ -3,6 +3,14 @@ describe('Number of divisors function', function(){
     expect(divisors(12)).toEqual(6);
   });
 
+  it('should find 5 divisors for 16', function(){
+    expect(divisors(16)).toEqual(5);
+  });
+
+  it('should find 8 divisors for 2*7*19', function(){
+    expect(divisors(2*7*19)).toEqual(8);
+  });
+
   it('should find 4 divisors for 123', function(){
     expect(divisors(123)).toEqual(4);
   });

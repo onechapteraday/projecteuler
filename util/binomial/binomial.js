@@ -2,5 +2,5 @@
  * coefficients in the binomial theorem. */
 
 function binomial(n,k){
-  return factorial(n)/(factorial(k)*factorial(n-k));
+  return (k>n)?1:factorial(n)/(factorial(k)*factorial(n-k));
 }

@@ -2,7 +2,7 @@
  * 20 = 2*2*5 = 2^2 + 5^1 so it has 3*2 divisors => 6 divisors.
  * 27951 = 3*7*11*11*11 = 3^1 + 7^1 + 11^3 so it has 2*2*4 divisors => 16 divisors. */
 
-function divisors(n){
+function nbdivisors(n){
   var f = factors(n),
       sum = 1,
       product = 1;

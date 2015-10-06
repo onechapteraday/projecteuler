@@ -18,7 +18,7 @@ function prb12(){
   var triangles = triangular(12500),
       result = 0;
   for(var i = 0; i < triangles.length; i++){
-    if(divisors(triangles[i])>500){
+    if(nbdivisors(triangles[i])>500){
       result = triangles[i];
       break;
     }

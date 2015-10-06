@@ -5,3 +5,7 @@
 var factorial = memoizer([1,1], function(shell,n){
   return (n<0)?undefined:n*shell(n-1);
 });
+
+var factorialLarge = memoizer([1,1], function(shell,n){
+  return (n<0)?undefined:multiplication(n,shell(n-1));
+});

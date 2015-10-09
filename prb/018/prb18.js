@@ -4,18 +4,12 @@
  * Find the maximum total from top to bottom of the triangle below: (cf. prb18.txt)*/
 
 function prb18(input){
-  var max = 0,
-      grid = input.split('\n').map(x => x.split(' '));
+  var grid = input.split('\n').map(x => x.split(' '));
   for(var i = 0; i < grid.length-1; i++){
     for(var j = 0; j < grid[i].length; j++){
       grid[i][j] = parseInt(grid[i][j]);
     }
   }
   grid.pop();
-  for(var i = 0; i < grid.length-1; i++){
-    if( maxpath(grid,grid.length-1,i) > max){
-      max = maxpath(grid,grid.length-1,i);
-    }  
-  }
-  return max;
+  return path(grid);
 }

@@ -11,4 +11,8 @@ describe('Abundant numbers function', function(){
     expect(a.swap(0,2)).toEqual([3,2,1,4,5]);
     expect(b.swap(4,1)).toEqual([0,48,16,23,7]);
   });
+
+  it('should generate permutations as expected', function(){
+    expect(a.permutations(a.length).length).toEqual(120);
+  });
 });

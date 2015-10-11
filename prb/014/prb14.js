@@ -12,9 +12,19 @@
 function prb14(){
   var longest = 0,
       start = 0;
+
   for(var i=2; i<1000000; i++){
-    if(collatz(i)>longest){
-      longest = collatz(i);
+    var temp = 0,
+        n = i;
+
+    while(n!=1){
+      if(n&1) n=3*n+1;
+      else n=n/2;
+      temp++;
+    }
+
+    if(temp>longest){
+      longest = temp;
       start = i;
     }
   }

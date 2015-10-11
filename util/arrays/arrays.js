@@ -34,3 +34,16 @@ Array.prototype.permutations = function(n){
   compute_perms(n);
   return perms;
 }
+
+/* Remove one specific item in an array.
+ * It deletes only one occurence of the item. */
+
+Array.prototype.remove = function(n){
+  for(var i in this){
+    if(this[i]==n){
+      this.splice(i,1);
+      break;
+    }
+  }
+  return this;
+}

@@ -4,7 +4,7 @@
 function abundants(n){
   var a = [];
   for(var i=1; i<n; i++){
-    if((divisors(i).reduce((acc,x) => acc+x)-i) > i)
+    if((divisors(i).sum() - i) > i)
       a.push(i);
   }
   return a;

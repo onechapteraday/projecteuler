@@ -26,5 +26,5 @@ function prb22(input){
     values[i] = chr_sum * (i+1);
   }
 
-  return values.reduce((acc, x) => acc + x);
+  return values.sum();
 }

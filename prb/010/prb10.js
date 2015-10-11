@@ -3,6 +3,5 @@
 
 function prb10(){
   var primes = eratosthenes(2000000);
-  var result = primes.reduce((acc, a) => acc + a);
-  return result;
+  return primes.sum();
 }

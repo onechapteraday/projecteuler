@@ -11,11 +11,11 @@ function prb21(){
   var sum = 0;
   for(var i = 220; i < 10000; i++){
     var a = divisors(i),
-      inner = a.reduce((acc,x) => acc+x) - i;
+      inner = a.sum() - i;
     // check w/ sum of proper divisors if its divisors are sum of proper divisors of i 
     if(inner > i){
       var b = divisors(inner),
-          total = b.reduce((acc,x) => acc+x) - inner;
+          total = b.sum() - inner;
       if(total == i)
         sum += i + inner;
     }

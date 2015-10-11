@@ -18,15 +18,19 @@ Array.prototype.sum = function(){
 /* Generate all permutations.
  * Use it with n = Array.length */
 
-var perms = [];
 Array.prototype.permutations = function(n){
-  if(n==1)
-    perms.push(this.join(''));
-  else{
-    for(var i=0; i!=n; i++){
-      this.permutations(n-1);
-      this.swap(n%2?0:i, n-1);
+  var perms = [],
+      array = this;
+  var compute_perms = function(n){
+    if(n==1)
+      perms.push(array.join(''));
+    else{
+      for(var i=0; i!=n; i++){
+        compute_perms(n-1);
+        array.swap(n%2?0:i, n-1);
+      }
     }
   }
+  compute_perms(n);
   return perms;
 }

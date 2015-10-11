@@ -7,7 +7,24 @@
  * 6, 7, 8 and 9? */
 
 function prb24(){
-  var a = [1,2,3,4,5,6,7,8,9,0],
-      p = a.permutations(a.length).sort();
-  return p[999999];
+  var sum = 0,
+      result = '',
+      a = [0,1,2,3,4,5,6,7,8,9];
+
+  for(var i = 10; i > 0; i--){
+    var nbperms = factorial(i),
+        parts = nbperms / i,
+	j = 0;
+
+    while(sum < 1000000){
+      sum += parts;
+      j++;
+    }
+
+    j -= 1;
+    sum -= parts;
+    result = result.concat(a.splice(j,1));
+  }
+
+  return parseInt(result);
 }

@@ -47,3 +47,16 @@ Array.prototype.remove = function(n){
   }
   return this;
 }
+
+/* Keep only one occurrence of an element in the array.
+ * Produce an ascending ordered array. */
+
+Array.prototype.unique = function(){
+  this.sort((x,y) => x-y);
+  for(var i=0; i<this.length-1; ){
+    if(this[i]==this[i+1])
+      this.splice(i,1);
+    else i++;
+  }
+  return this;
+}

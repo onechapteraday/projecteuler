@@ -30,4 +30,13 @@ describe('Abundant numbers function', function(){
     expect(e.remove(0)).toEqual([7,13,965]);
     expect(f.remove(124)).toEqual([34678,2134,8907,3456,7891]);
   });
+
+  it('should return an ordered array with unique elements', function(){
+    expect(c.unique()).toEqual([1,6,8]);
+    expect([45,45,2,13,69].unique()).toEqual([2,13,45,69]);
+  });
+
+  it('should not fail with undefined', function(){
+    expect([45,45,2,13,69,undefined].unique()).toEqual([2,13,45,69,undefined]);
+  });
 });

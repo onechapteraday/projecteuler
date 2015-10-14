@@ -1,4 +1,19 @@
 describe('Sieve of Eratosthenes array under 100', function(){
+  beforeAll(function(){
+    jasmine.addMatchers({
+      toBeEven: function(util, customEqualityTesters){
+        this.message = function(){
+	  return "Expected " + actual + " to be even";
+	}
+	return {
+	  compare: function(actual){
+	    return { pass : util.equals(actual%2==0, true, customEqualityTesters) }
+	  }
+	}
+      }
+    });
+  });
+
   var primes = eratosthenes(100);
 
   it('is truthy', function(){
@@ -24,5 +39,11 @@ describe('Sieve of Eratosthenes array under 100', function(){
     expect(primes).not.toContain(28);
     expect(primes).not.toContain(60);
     expect(primes).not.toContain(99);
+  });
+
+  it('has only odd values except number 2', function(){
+    for(var i = 1; i < primes.length; i++){
+      expect(primes[i]).not.toBeEven();
+    }
   });
 });

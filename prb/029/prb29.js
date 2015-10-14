@@ -10,19 +10,18 @@
  * and 2 <= b <= 100? */
 
 function prb29(){
-  var all = new Array();
-  var a = 2,
-      b = 100;
+  var all = new Array(),
+      a = 2,
+      b = 100,
+      c = new Calculator;
+
   for(var i = a; i <= b; i++){
+    var mul = String(i);
     for(var j = a; j <= b; j++){
-      var mul = '1',
-          c = new Calculator();
-      for(var k =0; k<j;k++){
-        mul = c.multiplication(mul, String(i));
-      }
+      mul = c.multiplication(mul, String(i));
       all.push(mul);
     }
   }
-  all.unique();
-  return all.length;
+
+  return all.unique().length;
 }

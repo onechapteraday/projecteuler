@@ -15,12 +15,12 @@ function prb29(){
       b = 100;
   for(var i = a; i <= b; i++){
     for(var j = a; j <= b; j++){
-      var mul = 1;
+      var mul = '1',
+          c = new Calculator();
       for(var k =0; k<j;k++){
-        mul = multiplication(mul,i);
+        mul = c.multiplication(mul, String(i));
       }
-      if(all.indexOf(mul)==-1) all.push(mul);
-     //all.push(mul);
+      all.push(mul);
     }
   }
   all.unique();

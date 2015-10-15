@@ -2,9 +2,9 @@
  * 50-digit numbers. */
 
 function prb13(input){
-  var result = '0';
+  var result = new LargeNumber('0');
   grid = input.split('\n');
   for(var i = 0; i < grid.length; i++)
-    result = addition(result,grid[i]);
-  return parseInt(result.substring(0,10));
+    result.setArray( addition(result.getArray(), new LargeNumber(grid[i]).getArray()) );
+  return parseInt(result.getValue().substring(0,10));
 }

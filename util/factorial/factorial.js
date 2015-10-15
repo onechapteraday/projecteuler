@@ -6,6 +6,9 @@ var factorial = memoizer([1,1], function(shell,n){
   return (n<0)?undefined:n*shell(n-1);
 });
 
-var factorialLarge = memoizer([1,1], function(shell,n){
-  return (n<0)?undefined:multiplication(n,shell(n-1));
-});
+function factorialLarge(n){
+  var result = new LargeNumber('1');
+  for(var i = 1; i<=n; i++)
+    result.setArray(multiplication(result.getArray(), new LargeNumber(String(i)).getArray()));
+  return result.getValue();
+}

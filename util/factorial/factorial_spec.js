@@ -40,7 +40,7 @@ describe('The factorial function in recursive way', function(){
   });
 
   it('finds the correct result for 42!', function(){
-    expect(factorialLarge(42)).toEqual('1405006117752879898543142606244511569936384000000000');
+    expect(factorialLarge('42')).toEqual('1405006117752879898543142606244511569936384000000000');
   });
 
   it('finds the correct approximation for 42!', function(){

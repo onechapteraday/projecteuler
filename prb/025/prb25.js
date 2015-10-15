@@ -21,10 +21,10 @@ function prb25(){
   var limit = 1000,
       result = '',
       index = 1,
-      x = '0',
-      y = '1';
-  while(y.length!=limit){
-    var temp = addition(x, y);
+      x = new LargeNumber('0'),
+      y = new LargeNumber('1');
+  while(y.getValue().length!=limit){
+    var temp = new LargeNumber(addition(x.getArray(), y.getArray()));
     x = y;
     y = temp;
     index++;

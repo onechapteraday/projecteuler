@@ -2,11 +2,11 @@
  * What is the sum of the digits of the number 21000? */
 
  function prb16(){
-   var sum = 1,
+   var sum = new LargeNumber('1'),
        result = 0;
    for(var i=0; i<1000; i++)
-     sum = addition(sum, sum);
-   var digits = (''+sum).split('');
+     sum.setArray(addition(sum.getArray(), sum.getArray()));
+   var digits = sum.getValue().split('');
    for(var i=0; i<digits.length; i++)
      result += parseInt(digits[i]);
    return result;

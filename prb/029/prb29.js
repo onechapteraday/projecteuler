@@ -12,14 +12,13 @@
 function prb29(){
   var all = new Array(),
       a = 2,
-      b = 100,
-      c = new Calculator;
+      b = 100;
 
   for(var i = a; i <= b; i++){
     var mul = new LargeNumber(String(i)),
         bigI = new LargeNumber(String(i));
     for(var j = a; j <= b; j++){
-      mul.setArray( c.multiplication(mul.getArray(), bigI.getArray()) );
+      mul.setArray(multiplication(mul.getArray(), bigI.getArray()));
       all.push(mul.getValue());
     }
   }

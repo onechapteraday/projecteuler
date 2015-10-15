@@ -6,7 +6,7 @@
 function prb20(){
   var sum = 0,
       fact100 = factorialLarge(100),
-      digits = (fact100+'').split('');
+      digits = fact100.split('');
   for(var i=0; i<digits.length; i++)
     sum += parseInt(digits[i]);
   return sum;

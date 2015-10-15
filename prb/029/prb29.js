@@ -16,10 +16,11 @@ function prb29(){
       c = new Calculator;
 
   for(var i = a; i <= b; i++){
-    var mul = String(i);
+    var mul = new LargeNumber(String(i)),
+        bigI = new LargeNumber(String(i));
     for(var j = a; j <= b; j++){
-      mul = c.multiplication(mul, String(i));
-      all.push(mul);
+      mul.setArray( c.multiplication(mul.getArray(), bigI.getArray()) );
+      all.push(mul.getValue());
     }
   }
 

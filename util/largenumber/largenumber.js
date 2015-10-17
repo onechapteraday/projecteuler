@@ -8,7 +8,7 @@ var LargeNumber = function(input){
   
   var toString = function(){
     var a = array.slice();
-    return a.shift() + a.map(function(x){return("0000000"+x).slice(-7)}).toString().replace(/,/g,"");
+    return a.shift() + a.reduce((acc,x) => acc + ('0000000'+x).slice(-7), '');
   }
 
   if(typeof(input)=='string'){

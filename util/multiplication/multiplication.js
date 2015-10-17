@@ -2,8 +2,6 @@
  * operations. These is an implementation of the multiplication. */
 
 function multiplication(x,y){
-  if(x.toString()=="0" || y.toString()=="0") return '0';
-
   var greater = ((x.length > y.length)||(x.length == y.length && x > y))?x:y,
       smaller = ((x.length > y.length)||(x.length == y.length && x > y))?y:x,
       lines = new Array(),
@@ -13,7 +11,6 @@ function multiplication(x,y){
       retenue = 0,
       final_result = [0];
   
-  // Make the multiplication
   for(var i = smaller.length; i > 0; i--){
     sum = [];
     retenue = 0;

@@ -10,23 +10,35 @@
  * NOTE: Once the chain starts the terms are allowed to go above one million. */
 
 function prb14(){
-  var longest = 0,
-      start = 0;
+  var result = 1,
+      index = 0,
+      l = new Array(1000000);
+  l[0] = l[1] = 1;
 
-  for(var i=2; i<1000000; i++){
-    var temp = 0,
-        n = i;
-
-    while(n!=1){
-      if(n&1) n=3*n+1;
-      else n=n/2;
-      temp++;
+  for(var i = 1; i < 1000000;){
+    if(l[i] > result){
+      result = l[i];
+      index = i;
     }
 
-    if(temp>longest){
-      longest = temp;
-      start = i;
+    i++;
+
+    var n = i,
+        length = 1;
+    
+    for(;;){
+      if(n&1){
+        n = 3*n + 1;
+      } else {
+        n /= 2;
+	if(n < i){
+	  l[i] = length + l[n];
+	  break;
+	}
+      }
+      length++;
     }
   }
-  return start;
+
+  return index;
 }

@@ -14,23 +14,19 @@
  * two abundant numbers. */
 
 function prb23(input){
-  var a = abundants(28124),
+  var sumof = Array.from(new Array(28123), () => false),
+      a = abundants(28123),
       sum = 0;
 
-  for(var i = 0; i < 28124; i++){
-    var found = false;
-
-    for(var j = 0; j < a.length; j++){
-      if(i - a[j] > 0){
-        if(binarysearch(a, i-a[j]) > -1){
-          found = true;
-          break;
-        }
-      }
+  for(var i = 0; i < a.length; i++){
+    for(var j=0; j<=i; j++){
+      sumof[a[i]+a[j]] = true;
     }
-
-    if(!found)
-      sum += i;
   }
+  
+  for(var i=1; i < 28124; i++){
+    if(!sumof[i]) sum += i;
+  }
+
   return sum;
 }

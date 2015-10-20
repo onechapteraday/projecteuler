@@ -9,12 +9,11 @@
  * of their digits.*/
 
 function prb30(){
-  var powers = new Array(),
-      result = 0;
+  var result = 0;
   for(var i = 2; i < 200000; i++){
     var digits = String(i).split(''),
         sum = digits.map(x => Math.pow(x,5)).sum();
-    if(sum==i) powers.push(i);
+    if(sum==i) result += i;
   }
-  return powers.sum();
+  return result;
 }

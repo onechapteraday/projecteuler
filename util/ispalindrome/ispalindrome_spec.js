@@ -5,9 +5,9 @@ describe('The palindrome function', function(){
       d = 5001;
 
   it('checks if numbers are palindromes', function(){
-    expect(ispalindrome(a)).toBe(true);
-    expect(ispalindrome(b)).toBe(true);
-    expect(ispalindrome(c)).not.toBe(true);
-    expect(ispalindrome(d)).not.toBe(true);
+    expect(ispalindrome(a,10)).toBe(true);
+    expect(ispalindrome(b,10)).toBe(true);
+    expect(ispalindrome(c,10)).not.toBe(true);
+    expect(ispalindrome(d,10)).not.toBe(true);
   });
 });

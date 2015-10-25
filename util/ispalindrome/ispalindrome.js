@@ -2,6 +2,6 @@
  * I figure if the reverse number of a number is equal to the number, this
  * number is a palindrome. */
 
-function ispalindrome(x){
-  return (x==reverse(x));
+function ispalindrome(x,base){
+  return (x==reverse(x,base));
 }

@@ -7,7 +7,7 @@ function prb4(){
   for(var i = 100; i < 1000; i++){
     for(var j = i; j < 1000; j++){
       if(result<i*j){
-        if(ispalindrome(i*j)) result = i*j;
+        if(ispalindrome(i*j,10)) result = i*j;
       }
     }
   }

@@ -5,15 +5,15 @@ describe('The reverse function', function(){
       d = 50;
 
   it('is making numbers', function(){
-    expect(!isNaN(reverse(a))).toBe(true);
-    expect(!isNaN(reverse(b))).toBe(true);
-    expect(!isNaN(reverse(c))).toBe(true);
+    expect(!isNaN(reverse(a,10))).toBe(true);
+    expect(!isNaN(reverse(b,10))).toBe(true);
+    expect(!isNaN(reverse(c,10))).toBe(true);
   });
 
   it('is doing a good reverse!', function(){
-    expect(reverse(a)).toEqual(731);
-    expect(reverse(b)).toEqual(9642);
-    expect(reverse(c)).toEqual(23);
-    expect(reverse(d)).toEqual(5);
+    expect(reverse(a,10)).toEqual(731);
+    expect(reverse(b,10)).toEqual(9642);
+    expect(reverse(c,10)).toEqual(23);
+    expect(reverse(d,10)).toEqual(5);
   });
 });

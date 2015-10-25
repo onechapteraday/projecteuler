@@ -1,4 +1,5 @@
-/**/
+/* This rotation function gives all rotations of the digits of a number. For
+ * example: rotations of 423 are [423,234,342]. */
 
 function rotation(int){
   var number = int.toString(),

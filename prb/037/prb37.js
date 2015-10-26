@@ -6,26 +6,6 @@
  * right and right to left.
  * NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes. */
 
-function left(x){
-  var digits = x.toString(),
-      truncatable = [];
-  for(var i = 0; i < digits.length; i++){
-    truncatable[i] = parseInt(digits.substring(i,digits.length));
-  }
-  return truncatable;
-}
-
-function right(x){
-  var digits = x.toString(),
-      length = digits.length,
-      truncatable = [];
-  while(length>0){
-    truncatable.push(parseInt(digits.substring(0,length)));
-    length--;
-  }
-  return truncatable;
-}
-
 function prb37(){
   var primes = eratosthenes(999999),
       solution = 0,

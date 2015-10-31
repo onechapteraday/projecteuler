@@ -60,3 +60,25 @@ Array.prototype.unique = function(){
   }
   return this;
 }
+
+/**/
+
+Array.prototype.ujoin = function(array){
+  var length = Math.min(this.length,array.length)-1,
+      equals = true,
+      concat = '';
+  for(var i = 0; i < length; i++){
+    if(this[this.length-length+i] != array[i]){
+      console.log('yep');
+      equals = false;
+      break;
+    }
+  }
+  if(equals){
+    concat = this.reduce((acc,x) => acc + x, '');
+    concat = array.reduce((acc,x) => acc + x, concat);
+    console.log(concat);
+  } else {
+    return '';
+  }
+}

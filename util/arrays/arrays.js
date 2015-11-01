@@ -61,22 +61,21 @@ Array.prototype.unique = function(){
   return this;
 }
 
-/* Should join two arrays if they are something that match.
- * Strictly experimental, for now. */
+/* Should join two arrays if they are the same length are
+ * if they're matching like => [1,2,3] and [2,3,4]. */
 
-Array.prototype.xjoin = function(array){
-  var length = Math.min(this.length,array.length)-1,
-      equals = true,
+Array.prototype.intersect = function(array){
+  if(this.length!=array.length) return '';
+  var equals = true,
       concat = '';
-  for(var i = 0; i < length; i++){
-    if(this[this.length-length+i] != array[i]){
+  for(var i = 0; i < this.length-1; i++){
+    if(this[i+1] != array[i]){
       equals = false;
       break;
     }
   }
   if(equals){
-    concat = this.reduce((acc,x,i) => acc + (i<length-1? x:''), '');
-    concat = array.reduce((acc,x) => acc + x, concat);
+    concat = this.concat(array).unique().reduce((acc,x) => acc + x, '');
     return concat;
   }
   return '';

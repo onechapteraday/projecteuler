@@ -40,7 +40,15 @@ describe('Array prototypes add some methods', function(){
     expect([45,45,2,13,69,undefined].unique()).toEqual([2,13,45,69,undefined]);
   });
 
+  it('should return \'678\'', function(){
+    expect([6,7].intersect([7,8])).toEqual('678');
+  });
+
   it('should return \'1234\'', function(){
-    expect([1,2,3].xjoin([2,3,4])).toEqual('1234');
+    expect([1,2,3].intersect([2,3,4])).toEqual('1234');
+  });
+
+  it('should return \'12345\'', function(){
+    expect([1,2,3,4].intersect([2,3,4,5])).toEqual('12345');
   });
 });

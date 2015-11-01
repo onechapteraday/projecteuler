@@ -61,24 +61,23 @@ Array.prototype.unique = function(){
   return this;
 }
 
-/**/
+/* Should join two arrays if they are something that match.
+ * Strictly experimental, for now. */
 
-Array.prototype.ujoin = function(array){
+Array.prototype.xjoin = function(array){
   var length = Math.min(this.length,array.length)-1,
       equals = true,
       concat = '';
   for(var i = 0; i < length; i++){
     if(this[this.length-length+i] != array[i]){
-      console.log('yep');
       equals = false;
       break;
     }
   }
   if(equals){
-    concat = this.reduce((acc,x) => acc + x, '');
+    concat = this.reduce((acc,x,i) => acc + (i<length-1? x:''), '');
     concat = array.reduce((acc,x) => acc + x, concat);
-    console.log(concat);
-  } else {
-    return '';
+    return concat;
   }
+  return '';
 }

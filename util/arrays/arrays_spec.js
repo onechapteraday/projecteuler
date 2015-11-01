@@ -1,4 +1,4 @@
-describe('Abundant numbers function', function(){
+describe('Array prototypes add some methods', function(){
   var a = [1,2,3,4,5],
       b = [0,7,16,23,48],
       c = [6,8,1];
@@ -38,5 +38,9 @@ describe('Abundant numbers function', function(){
 
   it('should not fail with undefined', function(){
     expect([45,45,2,13,69,undefined].unique()).toEqual([2,13,45,69,undefined]);
+  });
+
+  it('should return \'1234\'', function(){
+    expect([1,2,3].xjoin([2,3,4])).toEqual('1234');
   });
 });

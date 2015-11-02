@@ -61,11 +61,11 @@ Array.prototype.unique = function(){
   return this;
 }
 
-/* Should join two arrays if they are the same length are
- * if they're matching like => [1,2,3] and [2,3,4]. */
+/* Should join two arrays if they are matching with (this.length-1) elements.
+ * The parameter array should be bigger or have equal length at least => [1,2,3] and [2,3,4]. */
 
 Array.prototype.intersect = function(array){
-  if(this.length!=array.length) return '';
+  if(this.length>array.length) return '';
   var equals = true,
       concat = '';
   for(var i = 0; i < this.length-1; i++){
@@ -75,7 +75,8 @@ Array.prototype.intersect = function(array){
     }
   }
   if(equals){
-    concat = this.concat(array).unique().reduce((acc,x) => acc + x, '');
+    concat = this.reduce((acc,k,i) => acc + (i<this.length?k:''), '');
+    concat = array.reduce((acc,k,i) => acc + (i>=this.length-1?k:''), concat);
     return concat;
   }
   return '';

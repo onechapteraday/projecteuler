@@ -51,4 +51,8 @@ describe('Array prototypes add some methods', function(){
   it('should return \'12345\'', function(){
     expect([1,2,3,4].intersect([2,3,4,5])).toEqual('12345');
   });
+
+  it('should return \'1234567\'', function(){
+    expect([1,2,3,4].intersect([2,3,4,5,6,7])).toEqual('1234567');
+  });
 });

@@ -8,7 +8,7 @@ function withnorepeateddigits(n){
         break;
       }
     }
-    if(unique==false) break;
+    if(!unique) break;
   }
   return unique;
 }

@@ -1,12 +1,11 @@
+/* The series, 11 + 22 + 33 + ... + 1010 = 10405071317.
+ * Find the last ten digits of the series, 11 + 22 + 33 + ... + 10001000. */
+
 function prb48(){
-  var sum = new LargeNumber('0');
+  var sum = 0;
   for(var i = 1; i <= 1000; i++){
-    var mul = new LargeNumber('1');
-    for(var j = 0; j < i; j++){
-      mul.setArray( multiplication(mul.getArray(), new LargeNumber(String(i)).getArray() ) );
-    }
-    sum.setArray( addition(sum.getArray(),mul.getArray()));
+    sum += modularpow(i,i,10000000);
+    sum %= 10000000;
   }
-  var s = sum.getValue();
-  return parseInt(s.substr(s.length-10));
+  return sum;
 }

@@ -3,13 +3,20 @@
  * cryptography. */
 
 function modularpow(base, exponent, modulus){
-  var result = 1;
-  base = base % modulus;
-  while(exponent > 0){
-    if(exponent%2==1)
-      result = (result*base)%modulus;
-    exponent = exponent >> 1;
-    base = (base*base)%modulus;
+  if(exponent==0)
+    return 1;
+
+  else {
+    var n = 100000,
+        x = modularpow(base,exponent>>1,modulus),
+        xdivn = ~~(x/n),
+        xmodn = x%n,
+        x2 = (n*n%modulus*(xdivn*xdivn%modulus)+2*n*xdivn*xmodn+xmodn*xmodn)%modulus;
+
+    if(exponent&1)
+      return base*x2%modulus;
+
+    else
+      return x2;
   }
-  return result;
 }

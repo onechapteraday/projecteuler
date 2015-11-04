@@ -4,8 +4,8 @@
 function prb48(){
   var sum = 0;
   for(var i = 1; i <= 1000; i++){
-    sum += modularpow(i,i,10000000);
-    sum %= 10000000;
+    sum += modularpow(i,i,10000000000);
+    sum %= 10000000000;
   }
   return sum;
 }

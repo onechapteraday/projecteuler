@@ -8,7 +8,29 @@
  * Find the smallest prime which, by replacing part of the number (not necessarily
  * adjacent digits) with the same digit, is part of an eight prime value family. */
 
+
 function prb51(){
-  var digits = '0123456789';
-  return true;
+  var primes = eratosthenes(1000000),
+      digits = '0123456789',
+      result = 0;
+  for(var j = 0; j < primes.length; j++){
+    if(primes[j] > 100000){
+      var prime = primes[j],
+          temp = prime.toString(),
+          count = 0;
+        for(var i = 0; i < 10; i++){
+          var prim = temp,
+              n = parseInt(prim.replace(/1/g,digits[i]));
+          if(isprime(n)){
+            if(n.toString().length==temp.length)
+	      count++;
+    	  }
+        }
+        if(count==8){
+          result = parseInt(temp);
+          break;
+        }
+    }
+  }
+  return result;
 }

@@ -63,6 +63,23 @@ function issamesuit(array){
   return true;
 }
 
+function isstraightflush(array){
+  var cards = '23456789TJQKA',
+      index;
+  if(array.length==5){
+    if(issamesuit(array)){
+      sortcards(array);
+      index = cards.indexOf(array[0][0]);
+      for(var i = 1; i < array.length; i++){
+        if(array[i][0]==cards[index+i]) continue;
+	else return false;
+      }
+      return true;
+    }
+  }
+  return false;
+}
+
 function isroyalflush(array){
   var cards = 'TJQKA';
   if(array.length==5){

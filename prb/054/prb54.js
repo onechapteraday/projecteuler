@@ -46,6 +46,41 @@
  * hand is in no specific order, and in each hand there is a clear winner.
  * How many hands does Player 1 win? */
 
+function sortpoker(array){
+  var simplecards = '23456789TJQKA';
+  array.sort(function(x,y){
+    if(simplecards.indexOf(x[0]) > simplecards(y[0]))
+      return true;
+  });
+}
+
+function issamesuit(array){
+  var suit = array[0][1];
+  for(var i = 1; i < 5; i ++){
+    if(array[i][1]!=suit)
+      return false;
+  }
+  return true;
+}
+
+function isroyalflush(array){
+  var cards = 'TJQKA';
+  if(array.length==5){
+    if(issamesuit(array)){
+      for(var i = 0; i < 5; i++){
+        if(cards.indexOf(array[i][0])>-1){
+          cards = cards.replace(array[i][0],'');
+        } else return false;
+      }
+      if(!cards) return true;
+    }
+  }
+  return false;
+}
+
 function prb54(input){
+  // H: Hearts ; D: Diamonds ; C: Clubs ; S: Spades
+  //var cards = { '2':0, '3':1, '4':2, '5':3, '6':4, '7':5, '8':6, '9':7, 'T':8, 'J':9, 'Q':10, 'K':11, 'A':12 };
+  //var simplecards = '23456789TJQKA';
   return true;
 }

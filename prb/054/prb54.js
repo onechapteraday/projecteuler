@@ -46,10 +46,10 @@
  * hand is in no specific order, and in each hand there is a clear winner.
  * How many hands does Player 1 win? */
 
-function sortpoker(array){
-  var simplecards = '23456789TJQKA';
+function sortcards(array){
+  var cards = '23456789TJQKA';
   array.sort(function(x,y){
-    if(simplecards.indexOf(x[0]) > simplecards(y[0]))
+    if(cards.indexOf(x[0]) > cards.indexOf(y[0]))
       return true;
   });
 }

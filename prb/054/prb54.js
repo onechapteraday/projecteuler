@@ -93,21 +93,21 @@ function isflush(array){
 }
 
 function isfullhouse(array){
-  sortcards(array);
   if(array.length==5){
-    var attempt = (array[0][0] == array[1][0] && array[1][0] == array[2][0] && array[3][0] == array[4][0]),
-        attempt_ = (array[0][0] == array[1][0] && array[2][0] == array[3][0] && array[3][0] == array[4][0]);
-    return (attempt || attempt_);
+    sortcards(array);
+    var a = (array[0][0] == array[1][0] && array[1][0] == array[2][0] && array[3][0] == array[4][0]),
+        b = (array[0][0] == array[1][0] && array[2][0] == array[3][0] && array[3][0] == array[4][0]);
+    return (a || b);
   }
   return false;
 }
 
 function isfourofakind(array){
-  sortcards(array);
   if(array.length==5){
-    var attempt = (array[0][0] == array[1][0] && array[1][0] == array[2][0] && array[2][0] == array[3][0]),
-        attempt_ = (array[1][0] == array[2][0] && array[2][0] == array[3][0] && array[3][0] == array[4][0]);
-    return (attempt || attempt_);
+    sortcards(array);
+    var a = (array[0][0] == array[1][0] && array[1][0] == array[2][0] && array[2][0] == array[3][0]),
+        b = (array[1][0] == array[2][0] && array[2][0] == array[3][0] && array[3][0] == array[4][0]);
+    return (a || b);
   }
   return false;
 }
@@ -124,9 +124,9 @@ function isstraightflush(array){
 }
 
 function isroyalflush(array){
-  var cards = 'TJQKA';
   if(array.length==5){
     if(isflush(array)){
+      var cards = 'TJQKA';
       for(var i = 0; i < 5; i++){
         if(cards.indexOf(array[i][0])>-1){
           cards = cards.replace(array[i][0],'');

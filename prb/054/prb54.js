@@ -54,6 +54,21 @@ function sortcards(array){
   });
 }
 
+function isstraight(array){
+  if(array.length==5){
+    var cards = '23456789TJQKA',
+        index;
+    sortcards(array);
+    index = cards.indexOf(array[0][0]);
+    for(var i = 1; i < array.length; i++){
+      if(array[i][0]==cards[index+i]) continue;
+      else return false;
+    }
+    return true;
+  }
+  return false;
+}
+
 function isflush(array){
   var suit = array[0][1];
   if(array.length==5){
@@ -87,17 +102,11 @@ function isfourofakind(array){
 }
 
 function isstraightflush(array){
-  var cards = '23456789TJQKA',
-      index;
   if(array.length==5){
     if(isflush(array)){
-      sortcards(array);
-      index = cards.indexOf(array[0][0]);
-      for(var i = 1; i < array.length; i++){
-        if(array[i][0]==cards[index+i]) continue;
-	else return false;
+      if(isstraight(array)){
+        return true;
       }
-      return true;
     }
   }
   return false;

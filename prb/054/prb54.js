@@ -63,6 +63,16 @@ function issamesuit(array){
   return true;
 }
 
+function isfourofakind(array){
+  sortcards(array);
+  if(array.length==5){
+    var attempt = (array[0][0] == array[1][0] && array[1][0] == array[2][0] && array[2][0] == array[3][0]),
+        attempt_ = (array[1][0] == array[2][0] && array[2][0] == array[3][0] && array[3][0] == array[4][0]);
+    return (attempt || attempt_);
+  }
+  return false;
+}
+
 function isstraightflush(array){
   var cards = '23456789TJQKA',
       index;

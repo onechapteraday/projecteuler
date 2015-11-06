@@ -54,13 +54,16 @@ function sortcards(array){
   });
 }
 
-function issamesuit(array){
+function isflush(array){
   var suit = array[0][1];
-  for(var i = 1; i < 5; i ++){
-    if(array[i][1]!=suit)
-      return false;
+  if(array.length==5){
+    for(var i = 1; i < 5; i ++){
+      if(array[i][1]!=suit)
+        return false;
+    }
+    return true;
   }
-  return true;
+  return false;
 }
 
 function isfullhouse(array){
@@ -87,7 +90,7 @@ function isstraightflush(array){
   var cards = '23456789TJQKA',
       index;
   if(array.length==5){
-    if(issamesuit(array)){
+    if(isflush(array)){
       sortcards(array);
       index = cards.indexOf(array[0][0]);
       for(var i = 1; i < array.length; i++){
@@ -103,7 +106,7 @@ function isstraightflush(array){
 function isroyalflush(array){
   var cards = 'TJQKA';
   if(array.length==5){
-    if(issamesuit(array)){
+    if(isflush(array)){
       for(var i = 0; i < 5; i++){
         if(cards.indexOf(array[i][0])>-1){
           cards = cards.replace(array[i][0],'');

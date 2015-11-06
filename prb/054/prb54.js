@@ -54,6 +54,18 @@ function sortcards(array){
   });
 }
 
+function isonepair(array){
+  if(array.length==5){
+    sortcards(array);
+    var a = (array[0][0] == array[1][0]),
+        b = (array[1][0] == array[2][0]),
+        c = (array[2][0] == array[3][0]),
+        d = (array[3][0] == array[4][0]);
+    return (a || b || c || d);
+  }
+  return false;
+}
+
 function istwopairs(array){
   if(array.length==5){
     sortcards(array);

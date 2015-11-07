@@ -89,6 +89,23 @@ function findpair(array){
   return false;
 }
 
+function findthree(array){
+  if(array.length==5){
+    var three = [],
+        k = 0;
+    while(three.length==0 && k<3){
+      if(array[k][0] == array[k+1][0] && array[k+1][0] == array[k+2][0]){
+        three.push(array[k]);
+	three.push(array[k+1]);
+        three.push(array[k+2]);
+      }
+      k++;
+    }
+    return three;
+  }
+  return false;
+}
+
 function isonepair(array){
   if(array.length==5){
     sortcards(array);
@@ -178,6 +195,16 @@ function isfullhouse(array){
   return false;
 }
 
+function fullhousedraw(a,b){
+  var three1 = findthree(a),
+      three2 = findthree(b),
+      high = highestcardvalue(three1,three2);
+  if(high.length!=0){
+    if(three1.equals(high)) return a;
+    else return b;
+  }
+}
+
 function isfourofakind(array){
   if(array.length==5){
     sortcards(array);
@@ -226,25 +253,16 @@ function prb54(input){
       if(combinations[j](player1[i]) || combinations[j](player2[i])){
         console.log(combinations[j]);
         if(combinations[j](player1[i]) && !combinations[j](player2[i])){
-          console.log('game '+(i+1)+': p1 won');
           score1++;
         }
-        else if(!combinations[j](player1[i]) && combinations[j](player2[i])){
-          console.log('game '+(i+1)+': p2 won');
-          score2++;
-        }
-        else {
+        if(combinations[j](player1[i]) && combinations[j](player2[i])){
 	  if(combinations[j]==isonepair){
 	    var high = onepairdraw(player1[i],player2[i]);
-	    if(player1[i].equals(high)){
-              console.log('game '+(i+1)+': p1 won');
-              score1++;
-	    } else {
-              console.log('game '+(i+1)+': p2 won');
-              score2++;
-	    }
-	  } else {
-            console.log('game '+(i+1)+': they both have the winning combination');
+	    if(player1[i].equals(high)) score1++;
+	  }
+	  if(combinations[j]==isfullhouse){
+	    var high = fullhousedraw(player1[i],player2[i]);
+	    if(player1[i].equals(high)) score1++;
 	  }
         }
         won = true;
@@ -252,18 +270,13 @@ function prb54(input){
       }
     }
     if(!won){
-      console.log(highestcardvalue);
       var high = highestcardvalue(player1[i],player2[i]);
       if(player1[i].equals(high)){
-        console.log('game '+(i+1)+': p1 won');
         score1++;
-      }
-      if(player2[i].equals(high)){
-        console.log('game '+(i+1)+': p2 won');
-        score2++;
       }
       won = true;
     }
   }
+  console.log(score1);
   return true;
 }

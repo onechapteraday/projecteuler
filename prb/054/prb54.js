@@ -188,6 +188,7 @@ function twopairsdraw(a,b){
     }
   }
 }
+
 function isthreeofakind(array){
   if(array.length==5){
     sortcards(array);
@@ -197,6 +198,16 @@ function isthreeofakind(array){
     return (a || b || c);
   }
   return false;
+}
+
+function threeofakinddraw(a,b){
+  var three1 = findthree(a),
+      three2 = findthree(b),
+      high = highestcardvalue(three1,three2);
+  if(high.length!=0){
+    if(three1.equals(high)) return a;
+    else return b;
+  }
 }
 
 function isstraight(array){
@@ -303,6 +314,10 @@ function prb54(input){
 	  }
 	  if(combinations[j]==istwopairs){
 	    var high = twopairsdraw(player1[i],player2[i]);
+	    if(player1[i].equals(high)) score1++;
+	  }
+	  if(combinations[j]==isthreeofakind){
+	    var high = threeofakinddraw(player1[i],player2[i]);
 	    if(player1[i].equals(high)) score1++;
 	  }
 	  if(combinations[j]==isfullhouse){

@@ -181,8 +181,44 @@ function isroyalflush(array){
 }
 
 function prb54(input){
-  // H: Hearts ; D: Diamonds ; C: Clubs ; S: Spades
-  //var cards = { '2':0, '3':1, '4':2, '5':3, '6':4, '7':5, '8':6, '9':7, 'T':8, 'J':9, 'Q':10, 'K':11, 'A':12 };
-  //var simplecards = '23456789TJQKA';
+  var player1 = [['5H','5C','6S','7S','KD'],['5D','8C','9S','JS','AC'],['2D','9C','AS','AH','AC'],['4D','6S','9H','QH','QC'],['2H','2D','4C','4D','4S']],
+      player2 = [['2C','3S','8S','8D','TD'],['2C','5C','7D','8S','QH'],['3D','6D','7D','TD','QD'],['3D','6D','7H','QD','QS'],['3C','3D','3S','9S','9D']],
+      combinations = [isroyalflush, isstraightflush, isfourofakind, isfullhouse, isflush, isstraight, isthreeofakind, istwopairs, isonepair],
+      score1 = 0,
+      score2 = 0;
+  for(var i = 0; i < player1.length; i++){
+    var won = false;
+    for(var j = 0; j < combinations.length; j++){
+      if(combinations[j](player1[i]) || combinations[j](player2[i])){
+        console.log(combinations[j]);
+        if(combinations[j](player1[i]) && !combinations[j](player2[i])){
+          console.log('game '+(i+1)+': p1 won');
+          score1++;
+        }
+        else if(!combinations[j](player1[i]) && combinations[j](player2[i])){
+          console.log('game '+(i+1)+': p2 won');
+          score2++;
+        }
+        else {
+          console.log('game '+(i+1)+': they both have the winning combination');
+        }
+        won = true;
+        break;
+      }
+    }
+    if(!won){
+      console.log(highestcardvalue);
+      var high = highestcardvalue(player1[i],player2[i]);
+      if(player1[i].equals(high)){
+        console.log('game '+(i+1)+': p1 won');
+        score1++;
+      }
+      if(player2[i].equals(high)){
+        console.log('game '+(i+1)+': p2 won');
+        score2++;
+      }
+      won = true;
+    }
+  }
   return true;
 }

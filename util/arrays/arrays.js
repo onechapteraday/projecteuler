@@ -81,3 +81,26 @@ Array.prototype.intersect = function(array){
   }
   return '';
 }
+
+/* Return if two arrays are equals */
+
+Array.prototype.equals = function(array, strict){
+  if(this.length!=array.length)
+    return false;
+
+  if(arguments.length == 1)
+    strict = true;
+
+  if(!strict){
+    this.sort((x,y) => x-y);
+    array.sort((x,y) => x-y);
+  }
+
+  for(var i = 0; i < this.length; i++){
+    if(this[i]!=array[i]){
+      return false;
+    }
+  }
+
+  return true;
+}

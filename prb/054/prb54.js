@@ -73,6 +73,22 @@ function highestcardvalue(a,b){
   return false;
 }
 
+function findpair(array){
+  if(array.length==5){
+    var pair = [],
+        k = 0;
+    while(pair.length==0 && k<4){
+      if(array[k][0] == array[k+1][0]){
+        pair.push(array[k]);
+        pair.push(array[k+1]);
+      }
+      k++;
+    }
+    return pair;
+  }
+  return false;
+}
+
 function isonepair(array){
   if(array.length==5){
     sortcards(array);
@@ -86,25 +102,9 @@ function isonepair(array){
 }
 
 function onepairdraw(a,b){
-  var pair1 = [],
-      pair2 = [],
-      k = 0;
-  while(pair1.length==0 && k<4){
-    if(a[k][0] == a[k+1][0]){
-      pair1.push(a[k]);
-      pair1.push(a[k+1]);
-    }
-    k++;
-  }
-  k = 0;
-  while(pair2.length==0 && k<4){
-    if(b[k][0] == b[k+1][0]){
-      pair2.push(b[k]);
-      pair2.push(b[k+1]);
-    }
-    k++;
-  }
-  var high = highestcardvalue(pair1,pair2);
+  var pair1 = findpair(a),
+      pair2 = findpair(b),
+      high = highestcardvalue(pair1,pair2);
   if(high.length!=0){
     if(pair1.equals(high)) return a;
     else return b;

@@ -106,6 +106,24 @@ function findthree(array){
   return false;
 }
 
+function findtwopairs(array){
+  if(array.length==5){
+    var pair = [],
+        k = 0;
+    while(pair.length<2 && k<4){
+      var temp = [];
+      if(array[k][0] == array[k+1][0]){
+	temp.push(array[k]);
+        temp.push(array[k+1]);
+	pair.push(temp);
+	k +=2;
+      } else k++;
+    }
+    return pair;
+  }
+  return false;
+}
+
 function isonepair(array){
   if(array.length==5){
     sortcards(array);
@@ -147,6 +165,29 @@ function istwopairs(array){
   return false;
 }
 
+function twopairsdraw(a,b){
+  var pair1 = findtwopairs(a),
+      pair2 = findtwopairs(b),
+      high = highestcardvalue(pair1[1],pair2[1]);
+  if(high.length!=0){
+    if(pair1[1].equals(high)) return a;
+    else return b;
+  } else {
+    var high2 = highestcardvalue(pair1[0],pair1[0]);
+    if(high2.length!=0){
+      if(pair1[0].equals(high)) return a;
+      else return b;
+    } else {
+      var temp1 = a.slice().remove(pair1[0][0]).remove(pair1[0][1]).remove(pair1[1][0]).remove(pair1[1][1]);
+          temp2 = b.slice().remove(pair2[0][0]).remove(pair2[0][1]).remove(pair2[1][0]).remove(pair2[1][1]);
+      high = highestcardvalue(temp1,temp2);
+      if(high.length!=0){
+        if(temp1.equals(high)) return a;
+        else return b;
+      }
+    }
+  }
+}
 function isthreeofakind(array){
   if(array.length==5){
     sortcards(array);
@@ -258,6 +299,10 @@ function prb54(input){
         if(combinations[j](player1[i]) && combinations[j](player2[i])){
 	  if(combinations[j]==isonepair){
 	    var high = onepairdraw(player1[i],player2[i]);
+	    if(player1[i].equals(high)) score1++;
+	  }
+	  if(combinations[j]==istwopairs){
+	    var high = twopairsdraw(player1[i],player2[i]);
 	    if(player1[i].equals(high)) score1++;
 	  }
 	  if(combinations[j]==isfullhouse){

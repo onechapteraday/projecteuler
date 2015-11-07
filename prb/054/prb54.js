@@ -91,19 +91,17 @@ function findpair(array){
 
 function findthree(array){
   if(array.length==5){
-    var three = [],
+    var three = '',
         k = 0;
-    while(three.length==0 && k<3){
+    while(three=='' && k<3){
       if(array[k][0] == array[k+1][0] && array[k+1][0] == array[k+2][0]){
-        three.push(array[k]);
-	three.push(array[k+1]);
-        three.push(array[k+2]);
+        three = array[k][0];
       }
       k++;
     }
     return three;
   }
-  return false;
+  return '';
 }
 
 function findfour(array){
@@ -216,13 +214,11 @@ function isthreeofakind(array){
 }
 
 function threeofakinddraw(a,b){
-  var three1 = findthree(a),
-      three2 = findthree(b),
-      high = highestcardvalue(three1,three2);
-  if(high.length!=0){
-    if(three1.equals(high)) return a;
-    else return b;
-  }
+  var cards = '23456789TJQKA',
+      three1 = findthree(a),
+      three2 = findthree(b);
+  if(cards.indexOf(three1) > cards.indexOf(three2)) return a;
+  else return b;
 }
 
 function isstraight(array){
@@ -317,10 +313,23 @@ function isroyalflush(array){
 }
 
 function prb54(input){
-  var player1 = [['5H','5C','6S','7S','KD'],['5D','8C','9S','JS','AC'],['2D','9C','AS','AH','AC'],['4D','6S','9H','QH','QC'],['2H','2D','4C','4D','4S']],
-      player2 = [['2C','3S','8S','8D','TD'],['2C','5C','7D','8S','QH'],['3D','6D','7D','TD','QD'],['3D','6D','7H','QD','QS'],['3C','3D','3S','9S','9D']],
-      combinations = [isroyalflush, isstraightflush, isfourofakind, isfullhouse, isflush, isstraight, isthreeofakind, istwopairs, isonepair],
+  var combinations = [isroyalflush, isstraightflush, isfourofakind, isfullhouse, isflush, isstraight, isthreeofakind, istwopairs, isonepair],
+      player1 = [],
+      player2 = [],
       score = 0;
+
+  input = input.replace(/ /g,'').split('\n');
+  for(var i = 0; i < input.length-1; i++){
+    var temp1 = [],
+        temp2 = [];
+    for(var j = 0; j < 10; j+=2){
+      temp1.push( input[i].substr(j,2) );
+      temp2.push( input[i].substr(j+10,2) );
+    }
+    player1.push(temp1);
+    player2.push(temp2);
+  }
+
   for(var i = 0; i < player1.length; i++){
     var won = false;
     for(var j = 0; j < combinations.length; j++){
@@ -364,6 +373,6 @@ function prb54(input){
       if(player1[i].equals(high)) score++;
     }
   }
-  console.log(score);
-  return true;
+
+  return score;
 }

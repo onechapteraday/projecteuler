@@ -54,6 +54,25 @@ function sortcards(array){
   });
 }
 
+function highestcardvalue(a,b){
+  if(a.length == b.length){
+    var cards = '23456789TJQKA',
+        highest = [],
+        i = a.length-1;
+    sortcards(a);
+    sortcards(b);
+    while(highest.length==0 && i>=0){
+      if(cards.indexOf(a[i][0]) > cards.indexOf(b[i][0]))
+        highest = a;
+      if(cards.indexOf(b[i][0]) > cards.indexOf(a[i][0]))
+        highest = b;
+      i--;
+    }
+    return highest;
+  }
+  return false;
+}
+
 function isonepair(array){
   if(array.length==5){
     sortcards(array);

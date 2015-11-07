@@ -85,6 +85,40 @@ function isonepair(array){
   return false;
 }
 
+function onepairdraw(a,b){
+  var pair1 = [],
+      pair2 = [],
+      k = 0;
+  while(pair1.length==0 && k<4){
+    if(a[k][0] == a[k+1][0]){
+      pair1.push(a[k]);
+      pair1.push(a[k+1]);
+    }
+    k++;
+  }
+  k = 0;
+  while(pair2.length==0 && k<4){
+    if(b[k][0] == b[k+1][0]){
+      pair2.push(b[k]);
+      pair2.push(b[k+1]);
+    }
+    k++;
+  }
+  var high = highestcardvalue(pair1,pair2);
+  if(high.length!=0){
+    if(pair1.equals(high)) return a;
+    else return b;
+  } else{
+    var temp1 = a.slice().remove(pair1[0]).remove(pair1[1]);
+        temp2 = b.slice().remove(pair2[0]).remove(pair2[1]);
+    high = highestcardvalue(temp1,temp2);
+    if(high.length!=0){
+      if(temp1.equals(high)) return a;
+      else return b;
+    }
+  }
+}
+
 function istwopairs(array){
   if(array.length==5){
     sortcards(array);
@@ -200,7 +234,18 @@ function prb54(input){
           score2++;
         }
         else {
-          console.log('game '+(i+1)+': they both have the winning combination');
+	  if(combinations[j]==isonepair){
+	    var high = onepairdraw(player1[i],player2[i]);
+	    if(player1[i].equals(high)){
+              console.log('game '+(i+1)+': p1 won');
+              score1++;
+	    } else {
+              console.log('game '+(i+1)+': p2 won');
+              score2++;
+	    }
+	  } else {
+            console.log('game '+(i+1)+': they both have the winning combination');
+	  }
         }
         won = true;
         break;

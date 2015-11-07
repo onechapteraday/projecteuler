@@ -106,6 +106,21 @@ function findthree(array){
   return false;
 }
 
+function findfour(array){
+  if(array.length==5){
+    var four = '',
+        k = 0;
+    while(four=='' && k<2){
+      if(array[k][0] == array[k+1][0] && array[k+1][0] == array[k+2][0] && array[k+2][0] == array[k+3][0]){
+        four = array[k][0];
+      }
+      k++;
+    }
+    return four;
+  }
+  return '';
+}
+
 function findtwopairs(array){
   if(array.length==5){
     var pair = [],
@@ -267,6 +282,14 @@ function isfourofakind(array){
   return false;
 }
 
+function fourofakinddraw(a,b){
+  var cards = '23456789TJQKA',
+      four1 = findfour(a),
+      four2 = findfour(b);
+  if(cards.indexOf(four1) > cards.indexOf(four2)) return a;
+  else return b;
+}
+
 function isstraightflush(array){
   if(array.length==5){
     if(isflush(array)){
@@ -297,46 +320,50 @@ function prb54(input){
   var player1 = [['5H','5C','6S','7S','KD'],['5D','8C','9S','JS','AC'],['2D','9C','AS','AH','AC'],['4D','6S','9H','QH','QC'],['2H','2D','4C','4D','4S']],
       player2 = [['2C','3S','8S','8D','TD'],['2C','5C','7D','8S','QH'],['3D','6D','7D','TD','QD'],['3D','6D','7H','QD','QS'],['3C','3D','3S','9S','9D']],
       combinations = [isroyalflush, isstraightflush, isfourofakind, isfullhouse, isflush, isstraight, isthreeofakind, istwopairs, isonepair],
-      score1 = 0,
-      score2 = 0;
+      score = 0;
   for(var i = 0; i < player1.length; i++){
     var won = false;
     for(var j = 0; j < combinations.length; j++){
       if(combinations[j](player1[i]) || combinations[j](player2[i])){
-        console.log(combinations[j]);
+        won = true;
         if(combinations[j](player1[i]) && !combinations[j](player2[i])){
-          score1++;
-        }
-        if(combinations[j](player1[i]) && combinations[j](player2[i])){
+          score++;
+        } else if(combinations[j](player1[i]) && combinations[j](player2[i])){
 	  if(combinations[j]==isonepair){
 	    var high = onepairdraw(player1[i],player2[i]);
-	    if(player1[i].equals(high)) score1++;
+	    if(player1[i].equals(high)) score++;
 	  }
 	  if(combinations[j]==istwopairs){
 	    var high = twopairsdraw(player1[i],player2[i]);
-	    if(player1[i].equals(high)) score1++;
+	    if(player1[i].equals(high)) score++;
 	  }
 	  if(combinations[j]==isthreeofakind){
 	    var high = threeofakinddraw(player1[i],player2[i]);
-	    if(player1[i].equals(high)) score1++;
+	    if(player1[i].equals(high)) score++;
+	  }
+	  if(combinations[j]==isstraight || combinations[j]==isstraightflush){
+	    if(player1[i][0]>player2[i][0]) score++;
+	  }
+	  if(combinations[j]==isflush){
+	    if(player1[i][4]>player2[i][4]) score++;
 	  }
 	  if(combinations[j]==isfullhouse){
 	    var high = fullhousedraw(player1[i],player2[i]);
-	    if(player1[i].equals(high)) score1++;
+	    if(player1[i].equals(high)) score++;
+	  }
+	  if(combinations[j]==isfourofakind){
+	    var high = fourofakinddraw(player1[i],player2[i]);
+	    if(player1[i].equals(high)) score++;
 	  }
         }
-        won = true;
         break;
       }
     }
     if(!won){
       var high = highestcardvalue(player1[i],player2[i]);
-      if(player1[i].equals(high)){
-        score1++;
-      }
-      won = true;
+      if(player1[i].equals(high)) score++;
     }
   }
-  console.log(score1);
+  console.log(score);
   return true;
 }

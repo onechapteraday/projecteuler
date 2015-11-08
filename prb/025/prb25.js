@@ -21,8 +21,8 @@ function prb25(){
   var limit = 1000,
       result = '',
       index = 1,
-      x = new LargeNumber('0'),
-      y = new LargeNumber('1');
+      x = new LargeNumber([0]),
+      y = new LargeNumber([1]);
   while(y.getValue().length!=limit){
     var temp = new LargeNumber(addition(x.getArray(), y.getArray()));
     x = y;

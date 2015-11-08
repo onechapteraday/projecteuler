@@ -15,10 +15,10 @@ function prb29(){
       b = 100;
 
   for(var i = a; i <= b; i++){
-    var mul = new LargeNumber(String(i)),
-        bigI = new LargeNumber(String(i));
+    var mul = new LargeNumber([i]),
+        bigI = new LargeNumber([i]).getArray();
     for(var j = a; j <= b; j++){
-      mul.setArray(multiplication(mul.getArray(), bigI.getArray()));
+      mul.setArray(multiplication(mul.getArray(), bigI));
       all.push(mul.getValue());
     }
   }

@@ -30,7 +30,7 @@ describe('Large numbers', function(){
   });
 
   it('should set properly new values from setValue', function(){
-    b.setValue('1425236521987');
+    b = new LargeNumber('1425236521987');
     expect(b.getArray()).toEqual([142523,6521987]);
     expect(b.getValue()).toEqual('1425236521987');
   });

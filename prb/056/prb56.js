@@ -11,11 +11,7 @@
          arr = new LargeNumber([a]).getArray();
      for(var b = 1; b < 100; b++){
        num.setArray(multiplication(num.getArray(), arr));
-       var temp = num.getValue(),
-           sum = 0;
-       for(var i = 0; i < temp.length; i++){
-         sum += ~~temp[i];
-       }
+       var sum = num.getDigitsSum();
        if(sum>result) result = sum;
      }
    }

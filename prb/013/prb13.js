@@ -2,7 +2,7 @@
  * 50-digit numbers. */
 
 function prb13(input){
-  var result = new LargeNumber('0');
+  var result = new LargeNumber([0]);
   grid = input.split('\n');
   for(var i = 0; i < grid.length; i++)
     result.setArray( addition(result.getArray(), new LargeNumber(grid[i]).getArray()) );

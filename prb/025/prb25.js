@@ -19,14 +19,22 @@
 
 function prb25(){
   var limit = 1000,
-      result = '',
-      index = 1,
-      x = new LargeNumber([0]),
-      y = new LargeNumber([1]);
-  while(y.getValue().length!=limit){
-    var temp = new LargeNumber(addition(x.getArray(), y.getArray()));
+      index = 0,
+      count = 0,
+      curr = 0,
+      x = 0,
+      y = 1;
+  while(count+curr < limit){
+    var temp = x + y;
     x = y;
     y = temp;
+    curr = Math.floor(Math.log10(x))+1;
+    if(x>1000000000){
+      x /= 100000;
+      y /= 100000;
+      count += 5;
+      curr -= 5;
+    }
     index++;
   }
   return index;

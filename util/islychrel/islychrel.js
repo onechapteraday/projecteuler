@@ -4,8 +4,8 @@
 function islychrel(x){
   var lychrel = true;
   for(var i = 0; i < 49; i++){
-    x += reverse(x,10);
-    if(ispalindrome(x,10)){
+    x += reverse(x);
+    if(ispalindrome(x)){
       lychrel = false;
       break;
     }

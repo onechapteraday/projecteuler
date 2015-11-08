@@ -16,4 +16,8 @@ describe('The reverse function', function(){
     expect(reverse(c,10)).toEqual(23);
     expect(reverse(d,10)).toEqual(5);
   });
+
+  it('should do a good reverse of 164586014607', function(){
+    expect(reverse(164586014607)).toEqual(706410685461);
+  });
 });

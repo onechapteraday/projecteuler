@@ -3,5 +3,7 @@
  * number is a palindrome. */
 
 function ispalindrome(x,base){
+  if(arguments.length==1)
+    base = 10;
   return (x==reverse(x,base));
 }

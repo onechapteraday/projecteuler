@@ -7,14 +7,17 @@
  * NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes. */
 
 function prb37(){
-  var primes = eratosthenes(999999),
+  var primes = eratosthenes(739400),
       solution = 0,
       found = 0,
-      i = 4;
+      i = 8;
   while(found<11){
-    var values = left(primes[i]).concat(right(primes[i])),
+    var values = left(primes[i]),
+        b = right(primes[i]),
         allprimes = true;
-    values.unique();
+    for(var j = 0; j < b.length; j++){
+      values.push(b[j]);
+    }
     for(var j = 0; j < values.length; j++){
       if(!isprime(values[j])){
         allprimes = false;

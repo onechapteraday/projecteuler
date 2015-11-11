@@ -6,11 +6,14 @@
 function prb39(){
   var max = 0,
       solution = 0;
-  for(var i = 12; i < 1001; i++){
-    var temp = righttriangle(i);
+  // if a and b are even, so is c => p is even
+  // if a or b (not both) is odd, then c is odd => p is even
+  // if a and b are odd, c is even => p is even
+  for(var p = 120; p <= 1000; p+=2){
+    var temp = righttriangle(p);
     if(temp>max){
       max = temp;
-      solution = i;
+      solution = p;
     }
   }
   return solution;

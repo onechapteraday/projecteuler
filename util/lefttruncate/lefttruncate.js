@@ -1,10 +1,13 @@
 /* Remove digits of a number n from left to right. */
 
 function left(n){
-  var digits = n.toString(),
+  var temp = 0,
+      mod = 10,
       truncatable = [];
-  for(var i = 0; i < digits.length; i++){
-    truncatable[i] = parseInt(digits.substring(i,digits.length));
+  while(temp<n){
+    temp = n%mod;
+    truncatable.push(temp);
+    mod *= 10;
   }
   return truncatable;
 }

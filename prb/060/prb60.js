@@ -20,3 +20,29 @@ function prb60(){
   }
   return true;
 }
+
+//function prb60(){
+//  var primes = eratosthenes(1000);
+//  var i = 1;
+//  var temp = [];
+//  for(var j = i; j < primes.length; j++){
+//    if(isprime(parseInt(''+primes[i]+primes[j]))
+//       && isprime(parseInt(''+primes[j]+primes[i])))
+//      temp.push(primes[j]);
+//  }
+//  var i = 3;
+//  var temp2 = [];
+//  for(var j = i; j < primes.length; j++){
+//    if(isprime(parseInt(''+primes[i]+primes[j]))
+//       && isprime(parseInt(''+primes[j]+primes[i])))
+//      temp2.push(primes[j]);
+//  }
+//  var t = [];
+//  for(var i = 0; i < temp.length; i++){
+//    if(binarysearch(temp2,temp[i])>-1){
+//      t.push(temp[i]);
+//    }
+//  }
+//  console.log(t);
+//  return true;
+//}

@@ -7,42 +7,39 @@
 
 function prb60(){
   var primes = eratosthenes(1000);
-  for(var i = 0; i < 4; i++){
-    var temp = [];
-    for(var j = i; j < primes.length; j++){
-      if(isprime(parseInt(''+primes[i]+primes[j]))
-         && isprime(parseInt(''+primes[j]+primes[i])))
-        temp.push(primes[j]);
-    }
-    for(var k = 0; k < temp.length; k++){
-      console.log('['+primes[i]+']'+temp[k]+','+temp[k]+'['+primes[i]+']');
+  var i = 1;
+  var temp = [];
+  for(var j = i; j < primes.length; j++){
+    if(isprime(parseInt(''+primes[i]+primes[j]))
+       && isprime(parseInt(''+primes[j]+primes[i])))
+      temp.push(primes[j]);
+  }
+  var i = 3;
+  var temp2 = [];
+  for(var j = i; j < primes.length; j++){
+    if(isprime(parseInt(''+primes[i]+primes[j]))
+       && isprime(parseInt(''+primes[j]+primes[i])))
+      temp2.push(primes[j]);
+  }
+  var i = 28;
+  var temp3 = [];
+  for(var j = i; j < primes.length; j++){
+    if(isprime(parseInt(''+primes[i]+primes[j]))
+       && isprime(parseInt(''+primes[j]+primes[i])))
+      temp3.push(primes[j]);
+  }
+  var t = [];
+  for(var i = 0; i < temp.length; i++){
+    if(binarysearch(temp2,temp[i])>-1){
+      t.push(temp[i]);
     }
   }
+  var t2 = [];
+  for(var i = 0; i < t.length; i++){
+    if(binarysearch(t,temp3[i])>-1){
+      t2.push(temp3[i]);
+    }
+  }
+  console.log(t2);
   return true;
 }
-
-//function prb60(){
-//  var primes = eratosthenes(1000);
-//  var i = 1;
-//  var temp = [];
-//  for(var j = i; j < primes.length; j++){
-//    if(isprime(parseInt(''+primes[i]+primes[j]))
-//       && isprime(parseInt(''+primes[j]+primes[i])))
-//      temp.push(primes[j]);
-//  }
-//  var i = 3;
-//  var temp2 = [];
-//  for(var j = i; j < primes.length; j++){
-//    if(isprime(parseInt(''+primes[i]+primes[j]))
-//       && isprime(parseInt(''+primes[j]+primes[i])))
-//      temp2.push(primes[j]);
-//  }
-//  var t = [];
-//  for(var i = 0; i < temp.length; i++){
-//    if(binarysearch(temp2,temp[i])>-1){
-//      t.push(temp[i]);
-//    }
-//  }
-//  console.log(t);
-//  return true;
-//}

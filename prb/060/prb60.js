@@ -10,7 +10,7 @@ function prb60(){
   var primes = eratosthenes(8400),
       soluce = 0;
 
-  var setPrimes = function(n){
+  var setPrimePairs = function(n){
     var index = primes.indexOf(n),
         temp = [];
     for(var j = index; j < primes.length; j++){
@@ -21,10 +21,10 @@ function prb60(){
   }
 
   for(var i = 5; i < primes.length; i++){
-    var tab1 = setPrimes(primes[i]); 
+    var tab1 = setPrimePairs(primes[i]); 
     if(tab1.length>0){
       for(var j = 0; j < tab1.length; j++){
-        var tab2 = setPrimes(tab1[j]),
+        var tab2 = setPrimePairs(tab1[j]),
 	    tab3 = [];
         for(var k = 0; k < tab1.length; k++){
           if(binarysearch(tab2,tab1[k])>-1){
@@ -33,7 +33,7 @@ function prb60(){
 	}
 	if(tab3.length>0){
 	  for(var k = 0; k < tab3.length; k++){
-	    var tab4 = setPrimes(tab3[k]),
+	    var tab4 = setPrimePairs(tab3[k]),
 	        tab5 = [];
             for(var l = 0; l < tab3.length; l++){
               if(binarysearch(tab4,tab3[l])>-1){
@@ -42,7 +42,7 @@ function prb60(){
 	    }
 	    if(tab5.length>0){
 	      for(var l = 0; l < tab5.length; l++){
-	        var tab6 = setPrimes(tab5[l]),
+	        var tab6 = setPrimePairs(tab5[l]),
 	            temp = 0;
                 for(var m = 0; m < tab5.length; m++){
                   if(binarysearch(tab6,tab5[m])>-1){

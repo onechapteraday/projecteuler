@@ -5,41 +5,57 @@
  * Find the lowest sum for a set of five primes for which any two primes concatenate
  * to produce another prime. */
 
+
 function prb60(){
-  var primes = eratosthenes(1000);
-  var i = 1;
-  var temp = [];
-  for(var j = i; j < primes.length; j++){
-    if(isprime(parseInt(''+primes[i]+primes[j]))
-       && isprime(parseInt(''+primes[j]+primes[i])))
-      temp.push(primes[j]);
-  }
-  var i = 3;
-  var temp2 = [];
-  for(var j = i; j < primes.length; j++){
-    if(isprime(parseInt(''+primes[i]+primes[j]))
-       && isprime(parseInt(''+primes[j]+primes[i])))
-      temp2.push(primes[j]);
-  }
-  var i = 28;
-  var temp3 = [];
-  for(var j = i; j < primes.length; j++){
-    if(isprime(parseInt(''+primes[i]+primes[j]))
-       && isprime(parseInt(''+primes[j]+primes[i])))
-      temp3.push(primes[j]);
-  }
-  var t = [];
-  for(var i = 0; i < temp.length; i++){
-    if(binarysearch(temp2,temp[i])>-1){
-      t.push(temp[i]);
+  var primes = eratosthenes(1000),
+      soluce = 0;
+
+  var setPrimes = function(n){
+    var index = primes.indexOf(n),
+        temp = [];
+    for(var j = index; j < primes.length; j++){
+      if(isprime(parseInt(''+primes[index]+primes[j])) && isprime(parseInt(''+primes[j]+primes[index])))
+        temp.push(primes[j]);
     }
+    return temp;
   }
-  var t2 = [];
-  for(var i = 0; i < t.length; i++){
-    if(binarysearch(t,temp3[i])>-1){
-      t2.push(temp3[i]);
+
+  for(var i = 0; i < primes.length; i++){
+    var tab1 = setPrimes(primes[i]); 
+    if(tab1.length>0){
+      for(var j = 0; j < tab1.length; j++){
+        var tab2 = setPrimes(tab1[j]),
+	    tab3 = [];
+        for(var k = 0; k < tab1.length; k++){
+          if(binarysearch(tab2,tab1[k])>-1){
+            tab3.push(tab1[k]);
+          }
+	}
+	if(tab3.length>0){
+	  for(var k = 0; k < tab3.length; k++){
+	    var tab4 = setPrimes(tab3[k]),
+	        temp = 0;
+            for(var l = 0; l < tab3.length; l++){
+              if(binarysearch(tab4,tab3[l])>-1){
+                temp = tab3[l];
+		break;
+              }
+	    }
+	    if(temp>0){
+	      console.log(temp);
+	      console.log(tab3[k]);
+	      console.log(tab1[j]);
+	      console.log(primes[i]);
+	      soluce = primes[i] + tab1[j] + tab3[k] + temp;
+	      break;
+	    }
+	  }
+	}
+        if(soluce>0) break;
+      }
     }
+    if(soluce>0) break;
   }
-  console.log(t2);
+  console.log(soluce);
   return true;
 }

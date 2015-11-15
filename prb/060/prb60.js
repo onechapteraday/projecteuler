@@ -20,7 +20,7 @@ function prb60(){
     return temp;
   }
 
-  for(var i = 0; i < primes.length; i++){
+  for(var i = 5; i < primes.length; i++){
     var tab1 = setPrimes(primes[i]); 
     if(tab1.length>0){
       for(var j = 0; j < tab1.length; j++){

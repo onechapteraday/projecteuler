@@ -81,15 +81,46 @@ function prb61(){
   for(var n = 45; n < 141; n++)
     tris.push(triangle(n));
 
-  /*
-  var left = [],
-      right = [];
-  for(var i = 0; i < octs.length; i++){
-    left.push(octs[i].toString().substr(0,2));
-    if(octs[i].toString().substr(2,2)[0]!='0') right.push(octs[i].toString().substr(2,2));
+  var matchNumber = function(x,y){
+    var temp = x.toString().substr(2,2);
+    if(temp[0]!='0'){
+      if(temp == y.toString().substr(0,2)){
+        return true;
+      }
+    }
+    return false;
   }
-  right;
-  */
+/*
+
+for(var i = 0; i < octs.length; i++){
+  var attempt = [];
+  attempt.push(octs[i]);
+  for(var j = 0; j < heps.length; j++){
+    if(matchNumber(octs[i],heps[j])){
+      attempt.push(heps[j]);
+      for(var k = 0; k < hexs.length; k++){
+        if(matchNumber(heps[j],hexs[k])){
+          attempt.push(hexs[k]);
+        }
+      }
+    }
+  }
+  if(attempt.length<2){
+    for(var j = 0; j < hexs.length; j++){
+      if(matchNumber(octs[i],hexs[j])){
+        attempt.push(hexs[j]);
+        for(var k = 0; k < heps.length; k++){
+          if(matchNumber(hexs[j],heps[k])){
+            attempt.push(heps[k]);
+          }
+        }
+      }
+    }
+  }
+  if(attempt.length==3)
+    console.log(attempt);
+}
+*/
 
   return true;
 }

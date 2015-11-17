@@ -51,7 +51,7 @@ function prb61(){
       squares = [],
       triangles = [];
 
-  var perms = [0,1,2,3,4,5,6].permutations(6),
+  var perms = [0,1,2,3,5].permutations(5),
       soluce = 0;
 
   var matchNumber = function(x,y){
@@ -181,7 +181,7 @@ function prb61(){
   }
 
   for(var i = 0; i < perms.length; i++){
-    var temp = main(perms[i]);
+    var temp = main('4'+perms[i]);
     if(temp.length == 6){
       soluce = temp.sum();
       break;

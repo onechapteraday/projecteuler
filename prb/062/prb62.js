@@ -6,35 +6,24 @@
 
 function prb62(){
   var found = 0,
-      limit = 8400;
-  for(var i = 5000; i < limit; i++){
-    var a = i*i*i;
-    for(var j = i+1; j < limit; j++){
-      var b = j*j*j;
-      if(ispermutation(a,b)){
-        for(var k = j+1; k < limit; k++){
-          var c = k*k*k;
-          if(ispermutation(b,c)){
-            for(var l = k+1; l < limit; l++){
-              var d = l*l*l;
-              if(ispermutation(c,d)){
-                for(var m = l+1; m < limit; m++){
-                  var e = m*m*m;
-                  if(ispermutation(d,e)){
-                    found = i*i*i;
-                    break;
-                  }
-                }
-              }
-              if(found>0) break;
-            }
+      limit = 8400,
+      cubes = [],
+      sums = [];
+  for(var i = 0; i < limit; i++){
+    cubes[i] = [(i*i*i).toString().split('').sort((x,y)=>x-y).join(''),i];
+  }
+  cubes.sort((x,y)=>x[0]-y[0]);
+  for(var i = 0; i < cubes.length-5; i++){
+    if(cubes[i][0] == cubes[i+1][0]){
+      if(cubes[i+1][0] == cubes[i+2][0]){
+        if(cubes[i+2][0] == cubes[i+3][0]){
+          if(cubes[i+3][0] == cubes[i+4][0]){
+            found = cubes[i][1]*cubes[i][1]*cubes[i][1];
           }
-          if(found>0) break;
         }
       }
-      if(found>0) break;
     }
-    if(found>0) break;
+    if(found!=0) break;
   }
   return found;
 }

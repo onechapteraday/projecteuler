@@ -51,33 +51,27 @@ function prb61(){
       squs = [],
       tris = [];
 
-  // octagonal(19) = 1045
-  // octagonal(58) = 9976
+  // octagonal(19) = 1045 - octagonal(58) = 9976
   for(var n = 19; n < 59; n++)
     octs.push(octagonal(n));
 
-  // heptagonal(21) = 1071
-  // heptagonal(63) = 9828
+  // heptagonal(21) = 1071 - heptagonal(63) = 9828
   for(var n = 21; n < 64; n++)
     heps.push(heptagonal(n));
  
-  // hexagonal(23) = 1035
-  // hexagonal(70) = 9730
+  // hexagonal(23) = 1035 - hexagonal(70) = 9730
   for(var n = 23; n < 71; n++)
     hexs.push(hexagonal(n));
  
-  // pentagonal(26) = 1001
-  // pentagonal(81) = 9801
+  // pentagonal(26) = 1001 - pentagonal(81) = 9801
   for(var n = 26; n < 82; n++)
     pens.push(pentagonal(n));
  
-  // square(32) = 1032
-  // square(99) = 9801
+  // square(32) = 1032 - square(99) = 9801
   for(var n = 32; n < 100; n++)
     squs.push(square(n));
  
-  // triangle(45) = 1035
-  // triangle(140) = 9870
+  // triangle(45) = 1035 - triangle(140) = 9870
   for(var n = 45; n < 141; n++)
     tris.push(triangle(n));
 
@@ -90,37 +84,39 @@ function prb61(){
     }
     return false;
   }
-/*
 
-for(var i = 0; i < octs.length; i++){
-  var attempt = [];
-  attempt.push(octs[i]);
-  for(var j = 0; j < heps.length; j++){
-    if(matchNumber(octs[i],heps[j])){
-      attempt.push(heps[j]);
-      for(var k = 0; k < hexs.length; k++){
-        if(matchNumber(heps[j],hexs[k])){
-          attempt.push(hexs[k]);
-        }
-      }
-    }
-  }
-  if(attempt.length<2){
-    for(var j = 0; j < hexs.length; j++){
-      if(matchNumber(octs[i],hexs[j])){
-        attempt.push(hexs[j]);
-        for(var k = 0; k < heps.length; k++){
-          if(matchNumber(hexs[j],heps[k])){
-            attempt.push(heps[k]);
+  for(var i = 0; i < pens.length; i++){
+    var attempt = [];
+    attempt.push(pens[i]);
+    for(var j = 0; j < squs.length; j++){
+      if(matchNumber(pens[i],squs[j])){
+        attempt.push(squs[j]);
+        for(var k = 0; k < tris.length; k++){
+          if(matchNumber(squs[j],tris[k])){
+            attempt.push(tris[k]);
           }
         }
       }
     }
+    if(attempt.length==1){
+      for(var j = 0; j < tris.length; j++){
+        if(matchNumber(pens[i],tris[j])){
+          attempt.push(tris[j]);
+          for(var k = 0; k < squs.length; k++){
+            if(matchNumber(tris[j],squs[k])){
+              attempt.push(squs[k]);
+            }
+          }
+        }
+      }
+    }
+    if(attempt.length==3){
+      if(matchNumber(attempt[2],attempt[0])){
+        console.log(attempt);
+        break;
+      }
+    }
   }
-  if(attempt.length==3)
-    console.log(attempt);
-}
-*/
 
   return true;
 }

@@ -44,36 +44,15 @@ function octagonal(n){
 }
 
 function prb61(){
-  var octs = [],
-      heps = [],
-      hexs = [],
-      pens = [],
-      squs = [],
-      tris = [];
+  var octagonals = [],
+      heptagonals = [],
+      hexagonals = [],
+      pentagonals = [],
+      squares = [],
+      triangles = [];
 
-  // octagonal(19) = 1045 - octagonal(58) = 9976
-  for(var n = 19; n < 59; n++)
-    octs.push(octagonal(n));
-
-  // heptagonal(21) = 1071 - heptagonal(63) = 9828
-  for(var n = 21; n < 64; n++)
-    heps.push(heptagonal(n));
- 
-  // hexagonal(23) = 1035 - hexagonal(70) = 9730
-  for(var n = 23; n < 71; n++)
-    hexs.push(hexagonal(n));
- 
-  // pentagonal(26) = 1001 - pentagonal(81) = 9801
-  for(var n = 26; n < 82; n++)
-    pens.push(pentagonal(n));
- 
-  // square(32) = 1032 - square(99) = 9801
-  for(var n = 32; n < 100; n++)
-    squs.push(square(n));
- 
-  // triangle(45) = 1035 - triangle(140) = 9870
-  for(var n = 45; n < 141; n++)
-    tris.push(triangle(n));
+  var perms = [0,1,2,3,4,5,6].permutations(6),
+      soluce = 0;
 
   var matchNumber = function(x,y){
     var temp = x.toString().substr(2,2);
@@ -85,38 +64,129 @@ function prb61(){
     return false;
   }
 
-  for(var i = 0; i < pens.length; i++){
-    var attempt = [];
-    attempt.push(pens[i]);
-    for(var j = 0; j < squs.length; j++){
-      if(matchNumber(pens[i],squs[j])){
-        attempt.push(squs[j]);
-        for(var k = 0; k < tris.length; k++){
-          if(matchNumber(squs[j],tris[k])){
-            attempt.push(tris[k]);
-          }
-        }
+  for(var n = 19; n < 59; n++)
+    octagonals.push(octagonal(n));
+
+  for(var n = 21; n < 64; n++)
+    heptagonals.push(heptagonal(n));
+ 
+  for(var n = 23; n < 71; n++)
+    hexagonals.push(hexagonal(n));
+ 
+  for(var n = 26; n < 82; n++)
+    pentagonals.push(pentagonal(n));
+ 
+  for(var n = 32; n < 100; n++)
+    squares.push(square(n));
+ 
+  for(var n = 45; n < 141; n++)
+    triangles.push(triangle(n));
+
+  var main = function(string){
+    var first,
+        second,
+        third,
+        fourth,
+        fifth,
+        sixth;
+
+    for(var i = 0; i < string.length; i++){
+      switch(string[i]){
+        case '0':
+          if(i==0) first = octagonals;
+          if(i==1) second = octagonals;
+          if(i==2) third = octagonals;
+          if(i==3) fourth = octagonals;
+          if(i==4) fifth = octagonals;
+          if(i==5) sixth = octagonals;
+          break;
+        case '1':
+          if(i==0) first = heptagonals;
+          if(i==1) second = heptagonals;
+          if(i==2) third = heptagonals;
+          if(i==3) fourth = heptagonals;
+          if(i==4) fifth = heptagonals;
+          if(i==5) sixth = heptagonals;
+          break;
+        case '2':
+          if(i==0) first = hexagonals;
+          if(i==1) second = hexagonals;
+          if(i==2) third = hexagonals;
+          if(i==3) fourth = hexagonals;
+          if(i==4) fifth = hexagonals;
+          if(i==5) sixth = hexagonals;
+          break;
+        case '3':
+          if(i==0) first = pentagonals;
+          if(i==1) second = pentagonals;
+          if(i==2) third = pentagonals;
+          if(i==3) fourth = pentagonals;
+          if(i==4) fifth = pentagonals;
+          if(i==5) sixth = pentagonals;
+          break;
+        case '4':
+          if(i==0) first = squares;
+          if(i==1) second = squares;
+          if(i==2) third = squares;
+          if(i==3) fourth = squares;
+          if(i==4) fifth = squares;
+          if(i==5) sixth = squares;
+          break;
+        case '5':
+          if(i==0) first = triangles;
+          if(i==1) second = triangles;
+          if(i==2) third = triangles;
+          if(i==3) fourth = triangles;
+          if(i==4) fifth = triangles;
+          if(i==5) sixth = triangles;
+          break;
       }
     }
-    if(attempt.length==1){
-      for(var j = 0; j < tris.length; j++){
-        if(matchNumber(pens[i],tris[j])){
-          attempt.push(tris[j]);
-          for(var k = 0; k < squs.length; k++){
-            if(matchNumber(tris[j],squs[k])){
-              attempt.push(squs[k]);
+
+    for(var i = 0; i < first.length; i++){
+      var attempt = [];
+      attempt.push(first[i]);
+      for(var j = 0; j < second.length; j++){
+        if(matchNumber(first[i],second[j])){
+          attempt.push(second[j]);
+          for(var k = 0; k < third.length; k++){
+            if(matchNumber(second[j],third[k])){
+              attempt.push(third[k]);
+              for(var l = 0; l < fourth.length; l++){
+                if(matchNumber(third[k],fourth[l])){
+                  attempt.push(fourth[l]);
+                  for(var m = 0; m < fifth.length; m++){
+                    if(matchNumber(fourth[l],fifth[m])){
+                      attempt.push(fifth[m]);
+                      for(var n = 0; n < sixth.length; n++){
+                        if(matchNumber(fifth[m],sixth[n])){
+                          attempt.push(sixth[n]);
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
       }
-    }
-    if(attempt.length==3){
-      if(matchNumber(attempt[2],attempt[0])){
-        console.log(attempt);
-        break;
+      if(attempt.length==6){
+        if(matchNumber(attempt[5],attempt[0])){
+          return attempt;
+        }
       }
+    }
+    return [];
+  }
+
+  for(var i = 0; i < perms.length; i++){
+    var temp = main(perms[i]);
+    if(temp.length == 6){
+      soluce = temp.sum();
+      break;
     }
   }
 
-  return true;
+  return soluce;
 }

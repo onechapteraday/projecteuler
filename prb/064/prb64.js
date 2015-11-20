@@ -42,35 +42,11 @@
  * Exactly four continued fractions, for N <= 13, have an odd period.
  * How many continued fractions for N <= 10000 have an odd period? */
 
-function sqrtCF(n){
-  if(Math.sqrt(n)%1==0)
-    return 0;
-
-  var m0 = 0,
-      d0 = 1,
-      a0 = Math.floor(Math.sqrt(n));
-
-  var m = m0,
-      d = d0,
-      a = a0,
-      i = 0;
-
-  while(a != 2 * a0){
-    m = d*a-m;
-    d = (n-m*m)/d;
-    a = Math.floor((a0 + m)/d);
-    if(a<0) a = ~a + 1;
-    i++;
-  }
-
-  return i;
-}
-
 function prb64(){
   var limit = 10000,
       result = 0;
   for(var n = 1; n<= limit;n++){
-    if(sqrtCF(n)%2!=0){
+    if(sqrtperiod(n)%2!=0){
       result += 1;
     }
   }

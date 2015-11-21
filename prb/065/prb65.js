@@ -23,10 +23,30 @@
  * 2, 3, 8/3, 11/4, 19/7, 87/32, 106/39, 193/71, 1264/465, 1457/536, ...
  *
  * The sum of digits in the numerator of the 10th convergent is 1+4+5+7=17.
- *
  * Find the sum of digits in the numerator of the 100th convergent of the continued
  * fraction for e. */
 
- function prb65(){
-   return true;
- }
+function prb65(){
+  var sequence = [0],
+      limit = 100,
+      start = 2,
+      numerator = new LargeNumber([0]),
+      denominator = new LargeNumber([1]);
+  for(var i = 1; i < limit; i++){
+    if(i%3==2){
+      sequence.push(start);
+      start += 2;
+    } else {
+      sequence.push(1);
+    }
+  }
+  for(var i = limit-1; i > 0; i--){
+    var num = numerator.getArray(),
+        den = denominator.getArray(),
+        seq = new LargeNumber([sequence[i]]).getArray();
+    denominator.setArray(addition(num, multiplication(seq,den)));
+    numerator.setArray(den);
+  }
+  numerator.setArray(addition(numerator.getArray(), multiplication([2],denominator.getArray())));
+  return numerator.getDigitsSum();
+}

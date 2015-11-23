@@ -1,5 +1,5 @@
 function readFile(file, make){
-  var xhttp, data = '';
+  var xhttp;
 
   if (window.XMLHttpRequest) xhttp = new XMLHttpRequest();
   else xhttp = new ActiveXObject("Microsoft.XMLHTTP");

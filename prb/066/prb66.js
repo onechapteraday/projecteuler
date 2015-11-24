@@ -19,6 +19,26 @@
  * Find the value of D = 1000 in minimal solutions of x for which the largest value
  * of x is obtained. */
  
- function prb66(){
-   return true;
- }
+function issquare(n){
+  return (Math.sqrt(n)%1==0);
+}
+
+function prb66(){
+  var value = 0,
+      max = 0;
+  for(var D = 2; D <= 7; D++){
+    if(issquare(D)) continue;
+    for(var y = 1; ; y++){
+      var temp = D*Math.pow(y,2) + 1;
+      if(issquare(temp)){
+        var x = Math.sqrt(temp);
+        if(x>value){
+          value = x;
+          max = D;
+        }
+        break;
+      }
+    }
+  }
+  return max;
+}

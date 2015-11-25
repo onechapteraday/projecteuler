@@ -22,3 +22,24 @@ function sqrtperiod(n){
 
   return i;
 }
+
+function sqrtsequence(n){
+  if(Math.sqrt(n)%1==0)
+    return 0;
+
+  var a0 = Math.floor(Math.sqrt(n)),
+      m = 0,
+      d = 1,
+      a = a0,
+      tab = [];
+
+  while(a != 2 * a0){
+    m = d*a-m;
+    d = (n-m*m)/d;
+    a = Math.floor((a0 + m)/d);
+    if(a<0) a = ~a + 1;
+    tab.push(a);
+  }
+
+  return tab;
+}

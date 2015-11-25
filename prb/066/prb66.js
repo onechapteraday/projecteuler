@@ -23,6 +23,27 @@ function issquare(n){
   return (Math.sqrt(n)%1==0);
 }
 
+function convergent(n,nth){
+  var sequence = sqrtsequence(n);
+  var useSeq = function(){
+    var temp = sequence[0];
+    sequence.shift();
+    sequence.push(temp);
+    return temp;
+  }
+  var numerator = new LargeNumber([0]),
+      denominator = new LargeNumber([1]);
+  for(var i = nth-1; i > 0; i--){
+    var num = numerator.getArray(),
+        den = denominator.getArray(),
+        seq = new LargeNumber([useSeq()]).getArray();
+    denominator.setArray(addition(num, multiplication(seq,den)));
+    numerator.setArray(den);
+  }
+  numerator.setArray(addition(numerator.getArray(), multiplication([Math.floor(Math.sqrt(n))],denominator.getArray())));
+  return [numerator.getValue(),denominator.getValue()];
+}
+
 function prb66(){
   var value = 0,
       max = 0;

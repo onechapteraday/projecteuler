@@ -49,19 +49,28 @@ function convergent(n,nth){
 }
 
 function prb66(){
-  var value = 0,
+  var value = '0',
       max = 0;
   for(var D = 2; D <= 7; D++){
     if(issquare(D)) continue;
     for(var y = 1; ; y++){
-      var temp = D*Math.pow(y,2) + 1;
-      if(issquare(temp)){
-        var x = Math.sqrt(temp);
-        if(x>value){
-          value = x;
-          max = D;
-        }
-        break;
+      var conv = convergent(D,y);
+      var h = [conv[0]],
+          x = conv[0],
+          k = [conv[1]],
+	  h2 = new LargeNumber(multiplication(h,h)),
+	  Dk2 = multiplication([D],multiplication(k,k)),
+	  test = new LargeNumber(addition([1],Dk2));
+      if(test.getValue()==h2.getValue()){
+        console.log(x+'^2 - '+D+'x'+k+'^2 = 1');
+	if(x.length>value.length){
+	  value = x;
+	  max = D;
+	}else if(x.length==value.length && x>value){
+	  value = x;
+	  max = D;
+	}
+	break;
       }
     }
   }

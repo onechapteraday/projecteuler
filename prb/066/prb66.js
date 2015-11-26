@@ -23,38 +23,13 @@ function issquare(n){
   return (Math.sqrt(n)%1==0);
 }
 
-function convergent(n,nth){
-  var tab = sqrtsequence(n),
-      sequence = [];
-  var useSeq = function(){
-    var temp = tab[0];
-    tab.shift();
-    tab.push(temp);
-    return temp;
-  }
-  for(var j = 0; j < nth; j++){
-    sequence.push(useSeq());
-  }
-  var numerator = new LargeNumber([0]),
-      denominator = new LargeNumber([1]);
-  for(var i = nth-1; i > 0; i--){
-    var num = numerator.getArray(),
-        den = denominator.getArray(),
-        seq = new LargeNumber([sequence[i-1]]).getArray();
-    denominator.setArray(addition(num, multiplication(seq,den)));
-    numerator.setArray(den);
-  }
-  numerator.setArray(addition(numerator.getArray(), multiplication([Math.floor(Math.sqrt(n))],denominator.getArray())));
-  return [numerator.getValue(),denominator.getValue()];
-}
-
 function prb66(){
   var value = '0',
       max = 0;
   for(var D = 2; D <= 7; D++){
     if(issquare(D)) continue;
-    for(var y = 1; ; y++){
-      var conv = convergent(D,y);
+    for(var y = new LargeNumber([1]); ; y.setArray(addition(y.getArray(),[1]))){
+      var conv = convergent(D,parseInt(y.getValue()));
       var h = [conv[0]],
           x = conv[0],
           k = [conv[1]],
@@ -62,7 +37,7 @@ function prb66(){
 	  Dk2 = multiplication([D],multiplication(k,k)),
 	  test = new LargeNumber(addition([1],Dk2));
       if(test.getValue()==h2.getValue()){
-        console.log(x+'^2 - '+D+'x'+k+'^2 = 1');
+        //console.log(x+'^2 - '+D+'x'+k+'^2 = 1');
 	if(x.length>value.length){
 	  value = x;
 	  max = D;

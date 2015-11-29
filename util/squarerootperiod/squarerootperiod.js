@@ -16,7 +16,6 @@ function sqrtperiod(n){
     m = d*a-m;
     d = (n-m*m)/d;
     a = Math.floor((a0 + m)/d);
-    if(a<0) a = ~a + 1;
     i++;
   }
 
@@ -37,7 +36,6 @@ function sqrtsequence(n){
     m = d*a-m;
     d = (n-m*m)/d;
     a = Math.floor((a0 + m)/d);
-    if(a<0) a = ~a + 1;
     tab.push(a);
   }
 

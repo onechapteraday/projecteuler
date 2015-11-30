@@ -8,8 +8,23 @@ function subtraction(x,y){
       result = 0,
       retenue = 0;
 
-  if (xlength < ylength || (xlength == ylength && xlength[0] < ylength[0]))
+  if (xlength < ylength){
     return undefined;
+  }
+
+  if(xlength == ylength){
+    for(var i = 0; i < xlength; i++){
+      if(x[i] < y[i]){
+        return undefined;
+      }
+      if(x[i] == y[i]){
+        continue;
+      }
+      if(x[i] > y[i]){
+        break;
+      }
+    }
+  }
 
   for (var i = xlength; i > 0; i--){
     xlength--;

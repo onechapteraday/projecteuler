@@ -1,12 +1,13 @@
 describe('Subtraction function', function(){
-  var a = subtraction(new LargeNumber('153460854111525838926477').getArray(), new LargeNumber('5874532698962144366844').getArray()),
+  var a = subtraction(new LargeNumber('153460854111525838926477').getArray(), new LargeNumber('5874532698962144366844').getArray());
       b = subtraction(new LargeNumber('1000000000000000000000').getArray(), new LargeNumber('1').getArray());
       c = subtraction(new LargeNumber('4378').getArray(), new LargeNumber('4378').getArray()),
       d = subtraction(new LargeNumber('199998').getArray(), new LargeNumber('99999').getArray()),
       e = subtraction(new LargeNumber('1333306666670323164113').getArray(), new LargeNumber('99872343237868642879').getArray()),
       f = subtraction(new LargeNumber('789654').getArray(), new LargeNumber('654987').getArray()),
       g = subtraction(new LargeNumber('9999').getArray(), new LargeNumber('9998').getArray()),
-      h = subtraction(new LargeNumber('100000000000000').getArray(), new LargeNumber('99999990000001').getArray());
+      h = subtraction(new LargeNumber('100000000000000').getArray(), new LargeNumber('99999990000001').getArray()),
+      i = subtraction(new LargeNumber('10000000').getArray(), new LargeNumber('10000001').getArray());
 
   it('finds the correct result for a', function(){
     expect(new LargeNumber(a).getValue()).toEqual('147586321412563694559633');
@@ -38,5 +39,9 @@ describe('Subtraction function', function(){
 
   it('finds the correct result for h', function(){
     expect(new LargeNumber(h).getValue()).toEqual('9999999');
+  });
+
+  it('finds the correct result for i', function(){
+    expect(i).toBeUndefined();
   });
 });

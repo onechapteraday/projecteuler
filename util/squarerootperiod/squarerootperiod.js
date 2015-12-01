@@ -36,19 +36,22 @@ function sqrt(n){
 
 function sqrtsequence(n){
   if(Math.sqrt(n)%1==0)
-    return 0;
+    return [];
 
-  var a0 = Math.floor(Math.sqrt(n)),
-      m = 0,
-      d = 1,
+  var a0 = new LargeNumber(sqrt(n)),
+      m = new LargeNumber(['0']),
+      d = new LargeNumber(['1']),
       a = a0,
       tab = [];
 
-  while(a != 2 * a0){
-    m = d*a-m;
-    d = (n-m*m)/d;
-    a = Math.floor((a0 + m)/d);
-    tab.push(a);
+  while(a.getValue() != multiplication([2],new LargeNumber(sqrt(n)).getArray())){
+    //m = d*a-m;
+    m.setArray( subtraction(multiplication(d.getArray(),a.getArray()),m.getArray()) );
+    //d = (n-m*m)/d;
+    d.setArray(division( subtraction([n],multiplication(m.getArray(),m.getArray())) , d.getArray()));
+    //a = Math.floor((a0 + m)/d);
+    a.setArray(division( addition(new LargeNumber(sqrt(n)).getArray(), m.getArray()) , d.getArray()));
+    tab.push(a.getValue());
   }
 
   return tab;

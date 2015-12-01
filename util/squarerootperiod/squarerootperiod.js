@@ -22,6 +22,18 @@ function sqrtperiod(n){
   return i;
 }
 
+function sqrt(n){
+  var n_ = new LargeNumber([n]);
+  var r = new LargeNumber([1]);
+  // r = n/2;
+  r.setArray( division(n_.getArray(),new LargeNumber([2]).getArray()) );
+  for ( var i = 0; i < 10; i++ ) {
+    // r = (r+n/r)/2;
+    r.setArray( division(addition(r.getArray(),division(n_.getArray(),r.getArray())), [2]) );
+  }
+  return r.getValue();
+}
+
 function sqrtsequence(n){
   if(Math.sqrt(n)%1==0)
     return 0;

@@ -1,7 +1,7 @@
 /* Find nth convergent of n */
 
 function convergent(n,nth){
-  var tab = sqrtsequence(n),
+  var tab = sqrtsequence(n.toString()),
       sequence = [];
   var useSeq = function(){
     var temp = tab[0];
@@ -17,7 +17,7 @@ function convergent(n,nth){
   for(var i = nth-1; i > 0; i--){
     var num = numerator.getArray(),
         den = denominator.getArray(),
-        seq = new LargeNumber([sequence[i-1]]).getArray();
+        seq = new LargeNumber(sequence[i-1]).getArray();
     denominator.setArray(addition(num, multiplication(seq,den)));
     numerator.setArray(den);
   }

@@ -26,7 +26,7 @@ function issquare(n){
 function prb66(){
   var value = '0',
       max = 0;
-  for(var D = 2; D <= 7; D++){
+  for(var D = 2; D <= 23; D++){
     if(issquare(D)) continue;
     for(var y = new LargeNumber([1]); ; y.setArray(addition(y.getArray(),[1]))){
       var conv = convergent(D,parseInt(y.getValue()));
@@ -37,7 +37,6 @@ function prb66(){
 	  Dk2 = multiplication([D],multiplication(k,k)),
 	  test = new LargeNumber(addition([1],Dk2));
       if(test.getValue()==h2.getValue()){
-        //console.log(x+'^2 - '+D+'x'+k+'^2 = 1');
 	if(x.length>value.length){
 	  value = x;
 	  max = D;

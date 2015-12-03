@@ -35,7 +35,7 @@ function prb66(){
       var a0 = new LargeNumber(sqrt(D)),
           m = new LargeNumber(['0']),
           d = new LargeNumber(['1']),
-          a = a0,
+          a = new LargeNumber(a0.getArray()),
           tab = [];
 
       // Convergent variables

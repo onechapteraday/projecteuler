@@ -26,7 +26,7 @@ function issquare(n){
 function prb66(){
   var value = '0',
       max = 0;
-  for(var D = 2; D <= 6; D++){
+  for(var D = 2; D <= 1000; D++){
     if(issquare(D)) continue;
     for(var y = new LargeNumber([1]); ; y.setArray(addition(y.getArray(),[1]))){
       var found = false;
@@ -48,27 +48,39 @@ function prb66(){
       var a0x2 = new LargeNumber();
       a0x2.setArray(multiplication([2],a0.getArray()));
 
-      // Since only absolute values are used, subtraction can be done
-      // without worrying about the order of the parameters...
-      // ...but I'll have to find a way to do the correct operation with
-      // previous parameters signs
+      // Set signs for operations: 0 is positive number; 1 is negative
+      var m_sign = 0,
+          d_sign = 0;
+
       while(!found){
-        var m_sign = 0;
 
         // m = d*a-m;
         var dxa = new LargeNumber(multiplication(d.getArray(),a.getArray()));
-        if( subtraction(dxa.getArray(),m.getArray()) == undefined){
-          m.setArray( subtraction(m.getArray(),dxa.getArray()) );
-          m_sign = 1;
-        } else
-          m.setArray( subtraction(dxa.getArray(),m.getArray()) );
+        if(m_sign == 0){
+          if(subtraction(dxa.getArray(),m.getArray()) == undefined){
+            m.setArray( subtraction(m.getArray(),dxa.getArray()) );
+            m_sign = 1;
+          }else{
+            m.setArray( subtraction(dxa.getArray(),m.getArray()) );
+            m_sign = 0;
+          }
+        }else{
+            m.setArray( addition(dxa.getArray(),m.getArray()) );
+            m_sign = 0;
+        }
 
         // d = (n-m*m)/d;
         var mxm = new LargeNumber(multiplication(m.getArray(),m.getArray()));
-        if(subtraction([D],mxm.getArray()) == undefined)
-          d.setArray(division( subtraction(mxm.getArray(),[D]) , d.getArray()));
-        else
-          d.setArray(division( subtraction([D],mxm.getArray()) , d.getArray()));
+        if(d_sign == 0){
+          if(subtraction([D],mxm.getArray()) == undefined){
+            d.setArray(division( subtraction(mxm.getArray(),[D]) , d.getArray()));
+            d_sign = 1;
+          }else{
+            d.setArray(division( subtraction([D],mxm.getArray()) , d.getArray()));
+            d_sign = 0;
+          }
+        }else
+            d.setArray(division( addition([D],mxm.getArray()) , d.getArray()));
 
         // a = Math.floor((a0 + m)/d);
         if(m_sign == 1){
@@ -85,21 +97,26 @@ function prb66(){
         // Give the next convergent
         var numm2 = new LargeNumber(numm1.getArray());
         var denm2 = new LargeNumber(denm1.getArray());
-        numm1.setArray( num.getArray() );
-        denm1.setArray( den.getArray() );
+        numm1.setArray(num.getArray());
+        denm1.setArray(den.getArray());
 
-        // num = a*numm1 + numm2;
+        // num = a*numm1 + numm2 ; den = a*denm1 + denm2;
         num.setArray( addition(multiplication(a.getArray(),numm1.getArray()), numm2.getArray()) );
-        // den = a*denm1 + denm2;
         den.setArray( addition(multiplication(a.getArray(),denm1.getArray()), denm2.getArray()) );
-        // num * num
-        var numxnum = new LargeNumber(multiplication(num.getArray(),num.getArray()));
-        // D * den * den
-        var Dxdenxden = new LargeNumber(multiplication([D],multiplication(den.getArray(),den.getArray())));
+        // num * num ; D * den * den
+        var numxnum = new LargeNumber(multiplication(num.getArray(),num.getArray())),
+            Dxdenxden = new LargeNumber(multiplication([D],multiplication(den.getArray(),den.getArray())));
 
         var test = new LargeNumber(addition([1],Dxdenxden.getArray()));
         if(numxnum.getValue() == test.getValue()){
-          console.log(num.getValue()+'^2 - '+D+'x'+den.getValue()+'^2 = 1');
+          if(num.getValue().length>value.length){
+            value = num.getValue();
+            max = D;
+          }else if(num.getValue().length==value.length && num.getValue()>value){
+            value = num.getValue();
+            max = D;
+          }
+          //console.log(num.getValue()+'^2 - '+D+'x'+den.getValue()+'^2 = 1');
           found = true;
           break;
         }
@@ -107,16 +124,6 @@ function prb66(){
 
       break;
 
-      //if(test.getValue()==h2.getValue()){
-      //  if(x.length>value.length){
-      //    value = x;
-      //    max = D;
-      //  }else if(x.length==value.length && x>value){
-      //    value = x;
-      //    max = D;
-      //  }
-      //  break;
-      //}
     }
   }
   return max;

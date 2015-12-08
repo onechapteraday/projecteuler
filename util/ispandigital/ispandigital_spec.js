@@ -5,6 +5,10 @@ describe('Check if numbers are 9-digits pandigital', function(){
     expect(ispandigital(327654189)).toBe(true);
   });
 
+  it('should consider String with a 9-digits pandigital as true', function(){
+    expect(ispandigital('857412369')).toBe(true);
+  });
+
   it('should consider others as not pandigital', function(){
     expect(ispandigital(887654321)).not.toBe(true);
     expect(ispandigital(012345678)).not.toBe(true);

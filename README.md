@@ -8,6 +8,7 @@ The project Euler contains a multitude of programming problems: from the easiest
 
 ## Directory
 
+```
 .
 +-- lib
 |   +-- babel
@@ -28,3 +29,4 @@ The project Euler contains a multitude of programming problems: from the easiest
 |   +-- addition
 |   +-- amicable
 +-- README.md
+```

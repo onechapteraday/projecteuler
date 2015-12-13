@@ -28,5 +28,6 @@ The project Euler contains a multitude of programming problems: from the easiest
 |       +-- abundants_spec.js
 |   +-- addition
 |   +-- amicable
+|   +-- ...
 +-- README.md
 ```

@@ -33,5 +33,40 @@
  * 5-gon ring? */
 
 function prb68(input){
-  return true;
+  var sum = (1+2+3+4+5)*2+6+7+8+9+10,
+      nodevalue = sum/5,
+      first = 6,
+      max = '0';
+
+  for(var i = 1; i <= 5; i++){
+    var rest = [7,8,9,10];
+    for(var j = 1; j <= 5; j++){
+      if(i==j) continue;
+      var total = first + i + j;
+      if(total!=nodevalue) continue;
+      for(var k = 1; k <= 5; k++){
+        if(k==i || k==j) continue;
+        var second = total-j-k;
+        if(second>10 || second==i || second==j || second==first) continue;
+        rest.remove(second);
+        for(var l = 1; l <= 5; l++){
+          if(l==i || l==j || l==k) continue;
+          var third = total-l-k;
+          if(third>10 || third==i || third==j || third==k || third==first || third==second) continue;
+          rest.remove(third);
+          for(var m = 1; m <= 5; m++){
+            if(m==i || m==j || m==k || m==l) continue;
+            var fourth = total-m-l;
+            if(fourth>10 || fourth==i || fourth==j || fourth==k || fourth==l || fourth==first || fourth==second || fourth==third) continue;
+            rest.remove(fourth);
+            var value = ''+first+i+j+second+j+k+third+k+l+fourth+l+m+rest[0]+m+i;
+            if(value>max)
+              max = value;
+          }
+        }
+      }
+    }
+  }
+
+  return max;
 }

@@ -18,4 +18,8 @@ describe('Is permutation function', function(){
   it('returns true for 56743 and 37456', function(){
     expect(ispermutation(56743,37456)).toBeTruthy();
   });
+
+  it('returns true for 136547892145236987 and 251463987362541987', function(){
+    expect(ispermutation(136547892145236, 251463987362541)).toBeTruthy();
+  });
 });

@@ -11,5 +11,14 @@
  * d <= 1,000,000? */
 
 function prb72(){
-  return true;
+  var count = 0,
+      limit = 1000000;
+  for(var i = 1; i <= limit; i++){
+    for(var j = i+1; j <= limit; j++){
+      if(gcd(i,j)==1){
+        count++;
+      }
+    }
+  }
+  return count;
 }

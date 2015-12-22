@@ -13,24 +13,8 @@
 function prb72(){
   var count = 0,
       limit = 1000000;
-
-  var phi = function(n){
-    var result = n;
-    for(var p = 2; p*p <=n; p++){
-      if(n%p==0){
-        while(n%p==0)
-          n /= p;
-        result *= 1 - 1/p;
-      }
-    }
-    if(n > 1)
-      result *= 1 - 1/n;
-    return Math.floor(result);    
-  } 
-
   for(var n=2; n<=limit; n++){
     count += phi(n);
   }
-
   return count;
 }

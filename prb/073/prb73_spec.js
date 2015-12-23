@@ -1,5 +1,5 @@
 describe('Problem #73 function', function(){
   it('finds the correct result', function(){
-    expect(prb73()).toEqual(true);
+    expect(prb73()).toEqual(7295372);
   });
 });

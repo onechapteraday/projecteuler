@@ -11,5 +11,18 @@
  * fractions for d <= 12,000? */
 
 function prb73(){
-  return true;
+  var limit = 12000,
+      count = 0;
+  for(var a=1; a<=limit; a++){
+    for(var b=a; b<=limit; b++){
+      if(gcd(a,b)==1){
+        if(b < 3*a){
+          if(2*a < b){
+            count++;
+          }
+        }
+      }
+    }
+  }
+  return count;
 }

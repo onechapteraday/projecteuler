@@ -13,8 +13,8 @@
 function prb73(){
   var limit = 12000,
       count = 0;
-  for(var a=1; a<=limit; a++){
-    for(var b=a; b<=limit; b++){
+  for(var a=2; a<=limit; a++){
+    for(var b=a+a; b<=limit; b++){
       if(gcd(a,b)==1){
         if(b < 3*a){
           if(2*a < b){

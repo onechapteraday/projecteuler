@@ -7,7 +7,7 @@
  * 5/7, 3/4, 4/5, 5/6, 6/7, 7/8
  * 
  * It can be seen that 2/5 is the fraction immediately to the left of 3/7.
- * By listing the set of reduced proper fractions for d ≤ 1,000,000 in
+ * By listing the set of reduced proper fractions for d <= 1,000,000 in
  * ascending order of size, find the numerator of the fraction immediately to the
  * left of 3/7. */
 

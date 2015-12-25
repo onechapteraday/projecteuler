@@ -24,5 +24,35 @@
  * non-repeating terms? */
 
 function prb74(){
-  return true;
+  var limit = 100,
+      count = 0;
+  for(var i=1; i<=limit; i++){
+    var temp = i,
+        found = false,
+	arr = [i];
+    while(!found && arr.length<61){
+      var result = 0;
+      // find new number
+      while(!(temp%10==0 && Math.floor(temp/10)==0)){
+        var test = temp%10;
+        temp = Math.floor(temp/10);
+        result += factorial(test);
+	console.log(temp);
+      }
+      // check if new number is already in the array
+      for(var j=0; j < arr.length; j++){
+        if(result==arr[j]){
+          found = true;
+          break;
+        }
+      }
+      // if not in array, update temp
+      if(!found) arr.push(result);
+      temp = result;
+    }
+  }
+  if(arr.length==60){
+    count++;
+  }
+  return count;
 }

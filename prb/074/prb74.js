@@ -24,7 +24,7 @@
  * non-repeating terms? */
 
 function prb74(){
-  var limit = 100,
+  var limit = 1000000,
       count = 0;
   for(var i=1; i<=limit; i++){
     var temp = i,
@@ -37,7 +37,6 @@ function prb74(){
         var test = temp%10;
         temp = Math.floor(temp/10);
         result += factorial(test);
-	console.log(temp);
       }
       // check if new number is already in the array
       for(var j=0; j < arr.length; j++){
@@ -50,9 +49,9 @@ function prb74(){
       if(!found) arr.push(result);
       temp = result;
     }
-  }
-  if(arr.length==60){
-    count++;
+    if(arr.length==60){
+      count++;
+    }
   }
   return count;
 }

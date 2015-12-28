@@ -25,7 +25,11 @@
 
 function prb74(){
   var limit = 1000000,
-      count = 0;
+      count = 0,
+      f = new Array();
+  for(var i = 0; i <= 9; i++){
+    f[i] = factorial(i);
+  }
   for(var i=1; i<=limit; i++){
     var temp = i,
         found = false,
@@ -36,7 +40,7 @@ function prb74(){
       while(!(temp%10==0 && Math.floor(temp/10)==0)){
         var test = temp%10;
         temp = Math.floor(temp/10);
-        result += factorial(test);
+        result += f[test];
       }
       // check if new number is already in the array
       for(var j=0; j < arr.length; j++){

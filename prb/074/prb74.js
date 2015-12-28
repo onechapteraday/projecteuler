@@ -26,21 +26,22 @@
 function prb74(){
   var limit = 1000000,
       count = 0,
-      f = new Array();
+      factorials = new Array(),
+      cache = new Array();
   for(var i = 0; i <= 9; i++){
-    f[i] = factorial(i);
+    factorials[i] = factorial(i);
   }
   for(var i=1; i<=limit; i++){
     var temp = i,
-        found = false,
-	arr = [i];
+        arr = [i],
+        found = false;
     while(!found && arr.length<61){
       var result = 0;
       // find new number
       while(!(temp%10==0 && Math.floor(temp/10)==0)){
         var test = temp%10;
         temp = Math.floor(temp/10);
-        result += f[test];
+        result += factorials[test];
       }
       // check if new number is already in the array
       for(var j=0; j < arr.length; j++){
@@ -50,10 +51,17 @@ function prb74(){
         }
       }
       // if not in array, update temp
-      if(!found) arr.push(result);
       temp = result;
+      if(temp < i){
+        cache[i] = arr.concat(cache[temp]);
+        found = true;
+      }
+      if(!found) arr.push(result);
     }
-    if(arr.length==60){
+    if(typeof cache[i] == 'undefined'){
+      cache[i] = arr;
+    }
+    if(cache[i].length==60){
       count++;
     }
   }

@@ -20,5 +20,11 @@
  * can exactly one integer sided right angle triangle be formed? */
 
 function prb75(){
-  return true;
+  var count = 0;
+  for(var i=12; i<1500000; i++){
+    if(righttriangle(i)==1){
+      count++;
+    }
+  }
+  return count;
 }

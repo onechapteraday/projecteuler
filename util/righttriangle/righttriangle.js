@@ -16,3 +16,32 @@ function righttriangle(p){
   }
   return howmany;
 }
+
+function primitiveTriple(limit){
+  var p = 1,
+      primitiveTriples = new Array();
+  for (var m = 1; m < 2000; m++){
+    if(p > limit * 2){
+       break;
+    }
+    for(var n = 1; n < m; n++){
+      if(gcd(m, n) != 1){
+        continue;
+      }
+      if ((m%2 ==1) && (n%2 ==1)){
+        continue;
+      }else{
+        var x = 2*m*n,
+            y = m*m - n*n,
+            z = m*n + n*n,
+            b = Math.min(x,y),
+            a = Math.max(x,y),
+            p = x + y + z;
+        if(p <= limit){
+          primitiveTriples.push([p, b, a, z]);
+        }
+      }
+    }
+  }
+  return primitiveTriples;
+}

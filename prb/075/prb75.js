@@ -20,11 +20,34 @@
  * can exactly one integer sided right angle triangle be formed? */
 
 function prb75(){
-  var count = 0;
-  for(var i=12; i<1500000; i++){
-    if(righttriangle(i)==1){
-      count++;
+  var count = 0,
+      x = 1500000,
+      triples = new Array(x),
+      limit = Math.sqrt(x);
+
+  for(var i = 0; i < triples.length; i++) {
+    triples[i] = 0;
+  }
+
+  for (var i = 1; i < limit; i += 2) {
+    for (var j = 2; j <= limit; j += 2) {
+      if (gcd(i, j) != 1)
+      	continue;
+      var a = Math.abs(i * i - j * j),
+          b = 2 * i * j,
+          c = i * i + j * j,
+          sum = a + b + c,
+          t = sum;
+      while(t <= x){
+      	triples[t] += 1;
+      	t += sum;
+      }
     }
   }
+
+  for (var i = 1; i < triples.length; i++) {
+    if(triples[i] == 1) count++;
+  }
+
   return count;
 }

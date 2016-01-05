@@ -1,6 +1,6 @@
 /* Long division */
 
-function division(N,D){
+function divide(N,D,operation){
   if(D.equals([0],true))
     return undefined;
   N = base(10000000,2,N);
@@ -19,5 +19,17 @@ function division(N,D){
       Q.push(1);
     }
   }
-  return base(2,10000000,Q);
+  if(operation){
+    return base(2,10000000,Q);
+  }else{
+    return base(2,10000000,R);
+  }
+}
+
+function division(N,D){
+  return divide(N,D,true);
+}
+
+function modulo(N,D){
+  return divide(N,D,false);
 }

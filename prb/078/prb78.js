@@ -11,5 +11,7 @@
  * Find the least value of n for which p(n) is divisible by one million. */
 
 function prb78(){
+  // recurrence and partition:
+  // http://www.numbertheory.org/php/partition.html
   return true;
 }

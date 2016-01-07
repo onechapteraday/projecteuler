@@ -13,5 +13,24 @@
 function prb78(){
   // recurrence and partition:
   // http://www.numbertheory.org/php/partition.html
+  var p = [],
+      limit = 100;
+  p[0] = 1;
+  for(var i = 1; i <= limit; i++){
+    var j = 1,
+        k = 1,
+	s = 0;
+    while(j>0){
+      j = i-(3*k*k+k)/2;
+      if(j >= 0)
+        s = s - Math.pow(-1,k)*p[j];
+      j = i-(3*k*k-k)/2;
+      if(j >= 0)
+        s = s - Math.pow(-1,k)*p[j];
+      k++;
+    }
+    p[i] = s;
+  }
+  console.log(p);
   return true;
 }

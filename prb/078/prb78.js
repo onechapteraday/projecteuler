@@ -14,7 +14,8 @@ function prb78(){
   // recurrence and partition:
   // http://www.numbertheory.org/php/partition.html
   var p = [],
-      limit = 100;
+      limit = 100000,
+      soluce = 0;
   p[0] = 1;
   for(var i = 1; i <= limit; i++){
     var j = 1,
@@ -30,7 +31,11 @@ function prb78(){
       k++;
     }
     p[i] = s;
+    p[i] %= 1000000;
+    if(p[i] == 0){
+      soluce = i;
+      break;
+    }
   }
-  console.log(p);
-  return true;
+  return soluce;
 }

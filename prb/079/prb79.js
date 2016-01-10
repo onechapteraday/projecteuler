@@ -6,8 +6,8 @@
  * so as to determine the shortest possible secret passcode of unknown length. */
 
 function prb79(input){
-  var passcodes = input.split('\n').map(x => x.split(' '));
+  var passcodes = input.split('\n').map(x => parseInt(x));
   passcodes.pop();
-  console.log(passcodes);
+  passcodes.unique();
   return true;
 }

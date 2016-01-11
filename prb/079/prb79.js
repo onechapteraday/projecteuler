@@ -6,8 +6,8 @@
  * so as to determine the shortest possible secret passcode of unknown length. */
 
 function prb79(input){
-  var passcodes = input.split('\n').map(x => parseInt(x));
-  passcodes.pop();
-  passcodes.unique();
+  // topological sort: http://www.stoimen.com/blog/2012/10/01/computer-algorithms-topological-sort-of-a-graph/
+  var keys = input.split('\n');
+  keys.pop();
   return true;
 }

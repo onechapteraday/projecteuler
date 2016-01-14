@@ -24,6 +24,7 @@ This repository is my own interpretation of the projet Euler problems. You will 
 |   +-- 002
 |   +-- 003
 |   +-- ...
+|   +-- prbs.html
 +-- util
 |   +-- abundants
 |       +-- abundants.html

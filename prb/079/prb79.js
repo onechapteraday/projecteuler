@@ -11,25 +11,38 @@ function prb79(input){
   var keys = input.split('\n');
   keys.pop();
   keys.unique();
-  var L = ''; // L: list with no predecessor
-  var P = ''; // P: list with predecessor
-  for(var i=0; i<keys.length; i++){
-    var k1 = keys[i].charAt(1),
-        k2 = keys[i].charAt(2);
-    if(P.indexOf(k1)==-1){
-      P += k1;
+  // L: list with no predecessor
+  var L = '',
+      found = false;
+  while(!found){
+    var P = ''; // P: list with predecessor
+    for(var i=0; i<keys.length; i++){
+      var k1 = keys[i].charAt(1),
+          k2 = keys[i].charAt(2);
+      if(P.indexOf(k1)==-1){
+        P += k1;
+      }
+      if(P.indexOf(k2)==-1){
+        P += k2;
+      }
     }
-    if(P.indexOf(k2)==-1){
-      P += k2;
+    for(var i=0; i<keys.length; i++){
+      var k0 = keys[i].charAt(0);
+      if(L.indexOf(k0)==-1 && P.indexOf(k0)==-1){
+        L += k0;
+      }
+      if(L.indexOf(k0)>-1){
+        if(keys[i].length>1){
+          keys[i] = keys[i].substr(1);
+        } else {
+          keys.splice(i,1);
+          i -= 1;
+        }
+      }
+    }
+    if(P == ''){
+     found = true;
     }
   }
-  for(var i=0; i<keys.length; i++){
-    var k0 = keys[i].charAt(0);
-    if(L.indexOf(k0)==-1 && P.indexOf(k0)==-1){
-      L += k0;
-    }
-  }
-  console.log('P: '+P);
-  console.log('L: '+L);
-  return true;
+  return parseInt(L);
 }

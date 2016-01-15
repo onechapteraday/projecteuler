@@ -6,6 +6,24 @@
  * For the first one hundred natural numbers, find the total of the digital sums of
  * the first one hundred decimal digits for all the irrational square roots. */
 
- function prb80(){
-   return true;
- }
+function prb80(){
+  // http://www.afjarvis.staff.shef.ac.uk/maths/jarvisspec02.pdf
+  var sq = function(n){
+    var a = 5*n,
+        b = 5;
+    var i = 50;
+    while(i>0){
+      if(a >=b){
+        a -= b;
+        b += 10;
+      }
+      if(a < b){
+        a *= 100;
+        b = Math.floor(b/10) * 100 + 5;
+    }
+      i--;
+    }
+    return b;
+  }
+  return true;
+}

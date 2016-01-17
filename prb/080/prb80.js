@@ -16,10 +16,11 @@ function prb80(){
 
     // test = 10 * Math.pow(10,limit+1);
     test.setArray(multiplication([10], pow([10],limit+1)));
+    var value = test.getValue();
 
     // while(b<test)
-    while( b.getValue().length < test.getValue().length ||
-           (b.getValue().length == test.getValue().length && b.getValue() < test.getValue()) ){
+    while( b.getValue().length < value.length ||
+           (b.getValue().length == value.length && b.getValue() < value) ){
       // if(a >= b)
       if( a.getValue().length > b.getValue().length ||
           (a.getValue().length == b.getValue().length && a.getValue() >= b.getValue()) ){
@@ -34,7 +35,9 @@ function prb80(){
         // a *= 100;
         a.setArray(multiplication(a.getArray(), [100]));
 	// b += Math.floor(b/10) * 100 + 5;
-        b.setArray( addition(multiplication(division(b.getArray(),[10]), [100]), [5]));
+	var b_v = b.getValue(),
+	    b_l = b_v.length;
+        b.setValue(b_v.substr(0,b_l-1)+'0'+b_v.substr(b_l-1,1));
       }
     }
     // Math.floor(b/100);

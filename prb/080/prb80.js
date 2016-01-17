@@ -7,31 +7,44 @@
  * the first one hundred decimal digits for all the irrational square roots. */
 
 function prb80(){
+  // returns true if a < b
+  var issmaller = function(a,b){
+    var a_arr = a.getArray(),
+        b_arr = b.getArray();
+    if (a_arr.length < b_arr.length)
+      return true;
+    else if (a_arr.length > b_arr.length)
+      return false;
+    for (var i = 0; i < a_arr.length; i++){
+      if (a_arr[i] < b_arr[i])
+        return true;
+      else if (a_arr[i] > b_arr[i])
+        return false;
+    }
+    return false;
+  }
+
   // http://www.afjarvis.staff.shef.ac.uk/maths/jarvisspec02.pdf
   var sq = function(n){
     var a = new LargeNumber([5*n]),
         b = new LargeNumber([5]),
-	limit = 99,
-	test = new LargeNumber();
+	test = new LargeNumber(),
+	limit = 99;
 
     // test = 10 * Math.pow(10,limit+1);
     test.setArray(multiplication([10], pow([10],limit+1)));
-    var value = test.getValue();
 
     // while(b<test)
-    while( b.getValue().length < value.length ||
-           (b.getValue().length == value.length && b.getValue() < value) ){
+    while(issmaller(b,test)){
       // if(a >= b)
-      if( a.getValue().length > b.getValue().length ||
-          (a.getValue().length == b.getValue().length && a.getValue() >= b.getValue()) ){
+      if(!issmaller(a,b)){
         // a -= b;
 	a.setArray(subtraction(a.getArray(),b.getArray()));
 	// b += 10;
         b.setArray(addition(b.getArray(),[10]));
       }
       // if(a < b)
-      if( a.getValue().length < b.getValue().length ||
-          (a.getValue().length == b.getValue().length && a.getValue() < b.getValue())) {
+      if(issmaller(a,b)){
         // a *= 100;
         a.setArray(multiplication(a.getArray(), [100]));
 	// b += Math.floor(b/10) * 100 + 5;

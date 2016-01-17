@@ -11,7 +11,7 @@ function prb80(){
   var sq = function(n){
     var a = new LargeNumber([5*n]),
         b = new LargeNumber([5]),
-	limit = 100,
+	limit = 99,
 	test = new LargeNumber();
 
     // test = 10 * Math.pow(10,limit+1);
@@ -37,12 +37,18 @@ function prb80(){
         b.setArray( addition(multiplication(division(b.getArray(),[10]), [100]), [5]));
       }
     }
-    // Math.floor(b/100); without first digit
+    // Math.floor(b/100);
     var l = b.getValue().length;
-    return b.getValue().substring(0,l-3);
+    return b.getValue().substring(0,l-2);
   }
 
-  // display the first 100 numbers after the decimal of sqrt(2);
-  var tab = sq(2).split('').map(x => parseInt(x));
-  return tab.sum();
+  // display the first 100 numbers of sqrt(n);
+  var sum = 0;
+  for(var n = 2; n < 100; n++){
+    if(Math.sqrt(n)%1==0) continue;
+    var tab = sq(n).split('').map(x => parseInt(x));
+    sum += tab.sum();
+  }
+
+  return sum;
 }

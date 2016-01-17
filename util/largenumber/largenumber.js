@@ -21,6 +21,10 @@ var LargeNumber = function(input){
     return array.reduce((acc,x,i) => acc + (i==0?x:('0000000'+x).slice(-7)), '');
   }
 
+  this.setValue = function(S){
+    array = S.split(/(?=(?:.......)*$)/).map(x => parseInt(x));
+  }
+
   this.getDigitsSum = function(){
     var sum = 0;
     for(var i = 0; i < array.length; i++){

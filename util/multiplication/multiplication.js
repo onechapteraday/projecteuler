@@ -36,13 +36,3 @@ function multiplication(x,y){
   
   return sum;
 }
-
-function pow(n,x){
-  var m = 0,
-      s = new LargeNumber([1]);
-  while(m < x){
-    s.setArray( multiplication(s.getArray(),[n]));
-    m++;
-  }
-  return s.getArray();
-}

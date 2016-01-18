@@ -13,5 +13,36 @@
  * bottom right by only moving right and down. */
 
 function prb81(input){
-  return true;
+  var grid = input.split('\n').map(x => x.split(','));
+  grid.pop();
+  for(var i=0; i<grid.length; i++){
+    for(var j=0; j<grid[i].length; j++){
+      grid[i][j] = parseInt(grid[i][j]);
+    }
+  }
+  var minpath = function(){
+    var cache = new Array();
+    for(var i = 0 ; i < 100 ; i++){
+      cache[i] = new Array();
+    }
+    var min = function(x,y){
+      var result = cache[x][y];
+      if(typeof(result) == "undefined"){
+        if(x==0 && y==0) return grid[x][y];
+        else{
+          if(x==0){
+            return cache[x][y] = grid[x][y] + min(x,y-1); /* top side */
+          }else if(y==0){
+            return cache[x][y] = grid[x][y] + min(x-1,y); /* left side */
+          }else{ /* point */
+            return cache[x][y] = grid[x][y] + Math.min(min(x,y-1),min(x-1,y));
+          }
+        }
+      }else{
+        return result;
+      }    
+    };
+    return min;
+  }();
+  return minpath(79,79);
 }

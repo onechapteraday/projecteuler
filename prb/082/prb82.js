@@ -20,5 +20,32 @@ function prb82(input){
       grid[i][j] = parseInt(grid[i][j]);
     }
   }
+  //var minpath = function(){
+  //  var cache = new Array();
+  //  for(var i = 0 ; i < 80 ; i++){
+  //    cache[i] = new Array();
+  //  }
+  //  var min = function(x,y){
+  //    var result = cache[x][y];
+  //    if(typeof(result) == "undefined"){
+  //      if(x==0 && y==0) return grid[x][y];
+  //      else{
+  //        if(y==79){
+  //          return cache[x][y] = grid[x][y] + Math.min(min(x,y-1),min(x-1,y)); /* up or left! */
+  //        }else if(x==0){
+  //          return cache[x][y] = grid[x][y] + Math.min(min(x,y+1),min(x,y-1)); /* down or up */
+  //        }else if(y==0){
+  //          return cache[x][y] = grid[x][y] + Math.min(min(x,y+1),min(x-1,y)); /* down or left */
+  //        }else{ /* point */
+  //          return cache[x][y] = grid[x][y] + Math.min(min(x,y-1),min(x-1,y),min(x,y+1)); /* up or left! or down */
+  //        }
+  //      }
+  //    }else{
+  //      return result;
+  //    }    
+  //  };
+  //  return min;
+  //}();
+  //console.log(minpath(79,79));
   return true;
 }

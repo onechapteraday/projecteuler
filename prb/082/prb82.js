@@ -13,20 +13,13 @@
  * to the right column. */
 
 function prb82(input){
-  //var grid = input.split('\n').map(x => x.split(','));
-  //grid.pop();
-  //for(var i=0; i<grid.length; i++){
-  //  for(var j=0; j<grid[i].length; j++){
-  //    grid[i][j] = parseInt(grid[i][j]);
-  //  }
-  //}
-  var grid =[
-    [131, 673, 234, 103, 18 ],
-    [201, 96 , 342, 965, 150],
-    [630, 803, 746, 422, 111],
-    [537, 699, 497, 121, 956],
-    [805, 732, 524, 37 , 331]
-  ];
+  var grid = input.split('\n').map(x => x.split(','));
+  grid.pop();
+  for(var i=0; i<grid.length; i++){
+    for(var j=0; j<grid[i].length; j++){
+      grid[i][j] = parseInt(grid[i][j]);
+    }
+  }
 
   // find solutions for any cell in the right column
   var nbrows = grid.length,
@@ -59,6 +52,5 @@ function prb82(input){
     }
   }
 
-  console.log(min);
-  return true;
+  return min;
 }

@@ -20,5 +20,7 @@ function prb83(input){
       grid[i][j] = parseInt(grid[i][j]);
     }
   }
+  // will maybe use a pathfinding algorithm
+  // https://en.wikipedia.org/wiki/Pathfinding
   return true;
 }

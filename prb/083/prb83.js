@@ -22,8 +22,20 @@ function prb83(input){
   //}
   var grid = [[131,673,234,103,18],[201,96,342,965,150],[630,803,746,422,111],[537,699,497,121,956],[805,732,524,37,331]];
 
-  // will maybe use a pathfinding algorithm
-  // https://en.wikipedia.org/wiki/Pathfinding
+  // find solutions for any cell in the right column
+  var nbrows = grid.length,
+      nbcolumns = grid[0].length,
+      cache = [];
+
+  var matrix = [[-1,0],[0,-1],[1,0],[0,1]];
+
+  for(var i = 0; i < nbrows; i++){
+    for(var j = 0; j < nbcolumns; j++){
+      if((0 <= i+x) && (0 <= j+y) && (j+y < nbcolumns) ){
+        // create neighbours
+      }
+    }
+  }
 
   return true;
 }

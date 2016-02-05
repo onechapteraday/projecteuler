@@ -31,9 +31,15 @@ function prb83(input){
 
   for(var i = 0; i < nbrows; i++){
     for(var j = 0; j < nbcolumns; j++){
-      if((0 <= i+x) && (0 <= j+y) && (j+y < nbcolumns) ){
-        // create neighbours
+      var neighbours = [];
+      for(var k = 0; k < matrix.length; k++){
+        var x = matrix[k][0];
+        var y = matrix[k][1];
+        if((0 <= i+x) && (0 <= j+y) && (j+y < nbcolumns) ){
+	  neighbours.push([i+x,j+y]);
+	}
       }
+      //if(i==0) console.log(neighbours);
     }
   }
 

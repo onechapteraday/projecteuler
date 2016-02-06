@@ -39,7 +39,12 @@ function prb83(input){
 	  neighbours.push([i+x,j+y]);
 	}
       }
-      //if(i==0) console.log(neighbours);
+      //for(var k = 0; k < neighbours.length; k++){
+      //
+      //}
+      if(i==0){
+        console.log(neighbours);
+      }
     }
   }
 

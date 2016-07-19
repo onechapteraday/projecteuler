@@ -12,6 +12,14 @@
  * As..."), a 31K text file containing a 80 by 80 matrix, from the top left to the
  * bottom right by moving left, right, up, and down. */
 
+// introduction to pathfinding: https://www.raywenderlich.com/4946/introduction-to-a-pathfinding
+// things about A* algorithm: https://en.wikipedia.org/wiki/A*_search_algorithm
+
+function A(start, goal) {
+  var closedSet = new Set();
+  var openSet = new Set();
+}
+
 function prb83(input){
   //var grid = input.split('\n').map(x => x.split(','));
   //grid.pop();
@@ -20,33 +28,9 @@ function prb83(input){
   //    grid[i][j] = parseInt(grid[i][j]);
   //  }
   //}
+
+  // Grid example
   var grid = [[131,673,234,103,18],[201,96,342,965,150],[630,803,746,422,111],[537,699,497,121,956],[805,732,524,37,331]];
-
-  // find solutions for any cell in the right column
-  var nbrows = grid.length,
-      nbcolumns = grid[0].length,
-      cache = [];
-
-  var matrix = [[-1,0],[0,-1],[1,0],[0,1]];
-
-  for(var i = 0; i < nbrows; i++){
-    for(var j = 0; j < nbcolumns; j++){
-      var neighbours = [];
-      for(var k = 0; k < matrix.length; k++){
-        var x = matrix[k][0];
-        var y = matrix[k][1];
-        if((0 <= i+x) && (0 <= j+y) && (j+y < nbcolumns) ){
-	  neighbours.push([i+x,j+y]);
-	}
-      }
-      //for(var k = 0; k < neighbours.length; k++){
-      //
-      //}
-      if(i==0){
-        console.log(neighbours);
-      }
-    }
-  }
 
   return true;
 }

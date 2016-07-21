@@ -60,9 +60,15 @@ function prb83(input){
         min = -1;
 
     for(let [key, value] of openList.entries()){
-      console.log(fScore(value));
-      currentSquare = value;
-      break;
+      if(min == -1){
+        min = fScore(value);
+        currentSquare = value;
+      }
+
+      if(fScore(value) < min){
+        min = fScore(value);
+        currentSquare = value;
+      }
     }
 
     closedList.add(currentSquare);

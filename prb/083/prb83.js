@@ -29,9 +29,9 @@ function prb83(input){
   var start = [0,0];
   var destinationSquare = [grid[0].length-1, grid.length-1];
 
-  var openList = new Set();
-  var closedList = new Set();
-  openList.add(start);
+  var openList = [];
+  var closedList = [];
+  openList.push(start);
 
   var neighbours = function([i,j]){
     var matrix = [[-1,0],[0,-1],[1,0],[0,1]];
@@ -54,38 +54,83 @@ function prb83(input){
     return movementCost(start, coord) + movementCost(coord, destinationSquare);
   }
 
-  while(openList.size != 0 && !true){
-    // should be the square with the lowest F;
-    var currentSquare,
-        min = -1;
+  var destination = false,
+      sum = 0;
 
-    for(let [key, value] of openList.entries()){
+  while(openList.length != 0 && destination == false){
+    // get the square with the lowest F;
+    var currentSquare,
+        min = -1,
+	index;
+
+    // check all elements in openList
+    for(var i = 0; i < openList.length; i++){
+      var value = openList[i];
       if(min == -1){
         min = fScore(value);
         currentSquare = value;
+	index = i;
       }
 
       if(fScore(value) < min){
         min = fScore(value);
         currentSquare = value;
+	index = i;
       }
     }
 
-    closedList.add(currentSquare);
-    openList.delete(currentSquare);
+    // add the currentSquare to the closedList
+    closedList.push(currentSquare);
+    // remove it from the openList
+    openList.splice(index,1);
 
-    if(closedList.has(destinationSquare)){
-      break;
+    for(var i = 0; i < closedList.length; i++){
+      // if the destinationSquare were added to the closedList, a path is found!
+      if(closedList[i].equals(destinationSquare)){
+	// and so, we break the loop
+	destination = true;
+        break;
+      }
     }
 
-    var adjacentSquares = neighbours(currentSquare);
+    // if the destinationSquare is not reach
+    if(!destination){
+      // retrieve all adjacentSquares
+      var adjacentSquares = neighbours(currentSquare);
 
-    for(var a = 0; a < adjacentSquares.length; a++) {
-      if(closedList.has(adjacentSquares[a])){ continue; }
-      if(!openList.has(adjacentSquares[a])){
-        openList.add(adjacentSquares[a]);
-      }else{
-        console.log(adjacentSquares[a]);
+      for(var a = 0; a < adjacentSquares.length; a++) {
+        // if the adjacentSquare is already in the closedList
+        var found = false;
+        for(var i = 0; i < closedList.length; i++){
+          if(closedList[i].equals(adjacentSquares[a])){
+            found = true;
+            break;
+          }
+        }
+	// ... go to next adjacentSquare
+        //if(closedList.has(adjacentSquares[a])){ continue; }
+        if(found){ continue; }
+
+	// if this adjacentSquare is not in the openList
+        //if(!openList.has(adjacentSquares[a])){
+        var found = false;
+        for(var i = 0; i < openList.length; i++){
+          if(openList[i].equals(adjacentSquares[a])){
+            found = true;
+            break;
+          }
+        }
+
+        if(!found){
+	  // compute its score, set the parent
+	  // and add it to the openList
+          openList.push(adjacentSquares[a]);
+        }else{
+	  // if is already in openList
+	  // test if the fScore of the adjacentSquare is lower, if yes, update the parent
+	  // because it means its a better path!
+          console.log('a: '+adjacentSquares[a]);
+        }
       }
     }
   }

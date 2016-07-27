@@ -25,7 +25,12 @@ function prb83(input){
   //}
 
   // Grid example
-  var grid = [[131,673,234,103,18],[201,96,342,965,150],[630,803,746,422,111],[537,699,497,121,956],[805,732,524,37,331]];
+  var grid = [[131, 673, 234, 103,  18],
+              [201,  96, 342, 965, 150],
+              [630, 803, 746, 422, 111],
+              [537, 699, 497, 121, 956],
+              [805, 732, 524,  37, 331]];
+
   var start = [0,0];
   var destinationSquare = [grid[0].length-1, grid.length-1];
 
@@ -56,6 +61,9 @@ function prb83(input){
 
   var destination = false,
       sum = 0;
+
+  // should be an array with the same length of grid
+  var previous = [];
 
   while(openList.length != 0 && destination == false){
     // get the square with the lowest F;
@@ -122,14 +130,15 @@ function prb83(input){
         }
 
         if(!found){
-	  // compute its score, set the parent
+	  // compute its score, set the parent with currentSquare
+          // console.log('parent of ' + adjacentSquares[a] + ' is ' + currentSquare);
 	  // and add it to the openList
           openList.push(adjacentSquares[a]);
-        }else{
+        } else {
 	  // if is already in openList
-	  // test if the fScore of the adjacentSquare is lower, if yes, update the parent
-	  // because it means its a better path!
-          console.log('a: '+adjacentSquares[a]);
+          // test if using the current gScore make the aSquare fScore lower,
+          // if yes update the parent because it means it's a better path!
+          console.log('a: ' + adjacentSquares[a]);
         }
       }
     }

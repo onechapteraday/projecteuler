@@ -78,4 +78,8 @@ describe('Roman numerals to digits function', function(){
   it('return 20 for XX', function(){
     expect(romantodigits('XX')).toEqual(20);
   });
+
+  it('return 3487 for MMMCDLXXXVII', function(){
+    expect(romantodigits('MMMCDLXXXVII')).toEqual(3487);
+  });
 });

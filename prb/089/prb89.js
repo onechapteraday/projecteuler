@@ -29,6 +29,14 @@
  * than four consecutive identical units. */
 
 function prb89(input){
-  console.log(input);
-  return true;
+  var tab = new Array(),
+      diff = 0;
+
+  tab = input.split('\n');
+
+  for(var i = 0; i < tab.length; i++) {
+    diff += tab[i].length - digitstoroman(romantodigits(tab[i])).length;
+  }
+
+  return diff;
 }

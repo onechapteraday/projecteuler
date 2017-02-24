@@ -83,3 +83,25 @@ describe('Roman numerals to digits function', function(){
     expect(romantodigits('MMMCDLXXXVII')).toEqual(3487);
   });
 });
+
+describe('Numbers to roman numerals function', function(){
+  it('return II for 2', function(){
+    expect(digitstoroman(2)).toEqual('II');
+  });
+
+  it('return XVII for 17', function(){
+    expect(digitstoroman(17)).toEqual('XVII');
+  });
+
+  it('return CCCXL for 340', function(){
+    expect(digitstoroman(340)).toEqual('CCCXL');
+  });
+
+  it('return MCMLXXXIX for 1989', function(){
+    expect(digitstoroman(1989)).toEqual('MCMLXXXIX');
+  });
+
+  it('return MMMCDLXXXVII for 3487', function(){
+    expect(digitstoroman(3487)).toEqual('MMMCDLXXXVII');
+  });
+});

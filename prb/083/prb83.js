@@ -34,6 +34,13 @@ function prb83(input){
   var start = [0,0];
   var destinationSquare = [grid[0].length-1, grid.length-1];
 
+  // should be an array with the same length of grid
+  var previous = [[]];
+  for(var i = 0; i < grid.length; i++) {
+    previous[i] = [];
+  }
+  previous[0][0] = start;
+
   var openList = [];
   var closedList = [];
   openList.push(start);
@@ -51,42 +58,34 @@ function prb83(input){
     return n;
   }
 
-  var movementCost = function(fromCoord, toCoord){
-    return Math.abs(toCoord[1] - fromCoord[1]) + Math.abs(toCoord[0] - fromCoord[0])
+  var gScore = function(coord){
+    if(coord[0] == start[0] && coord[1] == start[1]){
+      return grid[coord[0]][coord[1]];
+    }
+
+    return grid[coord[0]][coord[1]] + gScore(previous[coord[0]][coord[1]]);
   }
 
-  var fScore = function(coord){
-    return movementCost(start, coord) + movementCost(coord, destinationSquare);
-  }
-
-  var destination = false,
-      sum = 0;
-
-  // should be an array with the same length of grid
-  var previous = [[]];
-  for(var i = 0; i < grid.length; i++) {
-    previous[i] = [];
-  }
-  previous[0][0] = 0;
+  var destination = false;
 
   while(openList.length != 0 && destination == false){
     // get the square with the lowest F;
     var currentSquare,
         min = -1,
-	index;
+        index;
 
     // check all elements in openList
     for(var i = 0; i < openList.length; i++){
-      var value = openList[i];
+      var coord = openList[i];
       if(min == -1){
-        min = fScore(value);
-        currentSquare = value;
+        min = gScore(coord);
+        currentSquare = coord;
 	index = i;
       }
 
-      if(fScore(value) < min){
-        min = fScore(value);
-        currentSquare = value;
+      if(gScore(coord) < min){
+        min = gScore(coord);
+        currentSquare = coord;
 	index = i;
       }
     }
@@ -119,6 +118,7 @@ function prb83(input){
             break;
           }
         }
+
 	// ... go to next adjacentSquare
         //if(closedList.has(adjacentSquares[a])){ continue; }
         if(found){ continue; }
@@ -134,36 +134,36 @@ function prb83(input){
         }
 
         if(!found){
-	  // compute its score, set the parent with currentSquare
-          console.log('parent of ' + adjacentSquares[a] + ' is ' + currentSquare);
 	  // prevent case neighbour does not exist
-
-	  if(typeof grid[adjacentSquares[a][0]] != 'undefined' ){
-	    //previous[adjacentSquares[a]] = currentSquare;
-	    previous[adjacentSquares[a][0]][adjacentSquares[a][1]] = grid[adjacentSquares[a][0]][adjacentSquares[a][1]] + grid[currentSquare[0]][currentSquare[1]];
+	  if(!(typeof grid[adjacentSquares[a][0]] == 'undefined' ||
+	     typeof grid[adjacentSquares[a][0]][adjacentSquares[a][1]] == 'undefined')) {
+	    previous[adjacentSquares[a][0]][adjacentSquares[a][1]] = currentSquare;
 	    // and add it to the openList
             openList.push(adjacentSquares[a]);
 	  }
         } else {
 	  // if is already in openList
-          // test if using the current gScore make the aSquare fScore lower,
-	  var aSquare_fScore = previous[adjacentSquares[a][0]][adjacentSquares[a][1]] + grid[currentSquare[0]][currentSquare[1]];
+          // test if using the current gScore make the aSquare gScore lower
+	  var aSquare_gScore = gScore(adjacentSquares[a]);
 	  // The G score is equal to the parent G score + the cost to move from the parent to it
-	  //var current_gScore = movementCost(start, previous[adjacentSquares[a]]) + movementCost(previous[adjacentSquares[a]], currentSquare);
-	  var current_fScore = grid[adjacentSquares[a][0]][adjacentSquares[a][1]] + grid[currentSquare[0]][currentSquare[1]];
-	  //console.log('aSquare_fScore: ' + aSquare_fScore);
-	  //console.log('maybe_aSquare_fScore: ' + maybe_aSquare_fScore);
+	  var current_gScore = gScore(currentSquare) + grid[adjacentSquares[a][0]][adjacentSquares[a][1]];
 
-	  if(current_fScore < aSquare_fScore) {
+	  if(current_gScore < aSquare_gScore) {
             // if yes update the parent because it means it's a better path!
             console.log('!parent of ' + adjacentSquares[a] + ' is actually ' + currentSquare);
-	    previous[adjacentSquares[a][0]][adjacentSquares[a][1]] = current_fScore;
+	    previous[adjacentSquares[a][0]][adjacentSquares[a][1]] = currentSquare;
 	  }
         }
       }
     }
   }
 
-  console.log(previous);
+  console.log(gScore(destinationSquare));
+  var cur = destinationSquare;
+  while (!cur.equals(start)) {
+    console.log(previous[cur[0]][cur[1]]);
+    cur = previous[cur[0]][cur[1]];
+  }
+
   return true;
 }

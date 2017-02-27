@@ -21,17 +21,24 @@ function prb83(grid){
   var destination = false;
 
   var openList = [];
-  var closedList = [];
-
-  // should be an array with the same length of grid
-  var previous = [[]];
-  for(var i = 0; i < grid.length; i++) {
-    previous[i] = [];
-  }
-  previous[0][0] = start;
-
   openList.push(start);
 
+  // should be arrays with the same length of grid
+  var previous = [[]];
+  var visited = [[]];
+
+  for(var i = 0; i < grid.length; i++) {
+    previous[i] = [];
+    visited[i] = [];
+
+    for(var j = 0; j < grid.length; j++) {
+      visited[i][j] = false;
+    }
+  }
+
+  previous[0][0] = grid[start[0]][start[1]];
+
+  // find the neighbours of [i,j]
   var neighbours = function([i,j]){
     var matrix = [[-1,0],[0,-1],[1,0],[0,1]];
     var n = [];
@@ -45,12 +52,9 @@ function prb83(grid){
     return n;
   }
 
-  var gScore = function(coord){
-    if(coord[0] == start[0] && coord[1] == start[1]){
-      return grid[coord[0]][coord[1]];
-    }
-
-    return grid[coord[0]][coord[1]] + gScore(previous[coord[0]][coord[1]]);
+  // calculate gScore with currentSquare and adjacentSquar
+  var gScore = function(cur, adj){
+    return previous[cur[0]][cur[1]] + grid[adj[0]][adj[1]];
   }
 
   while(openList.length != 0 && destination == false){
@@ -63,30 +67,29 @@ function prb83(grid){
     for(var i = 0; i < openList.length; i++){
       var coord = openList[i];
       if(min == -1){
-        min = gScore(coord);
+        min = previous[coord[0]][coord[1]];
         currentSquare = coord;
 	index = i;
       }
 
-      if(gScore(coord) < min){
-        min = gScore(coord);
+      if(previous[coord[0]][coord[1]] < min){
+        min = previous[coord[0]][coord[1]];
         currentSquare = coord;
 	index = i;
       }
     }
 
-    // add the currentSquare to the closedList
-    closedList.push(currentSquare);
+    // mark currentSquare as visited
+    visited[currentSquare[0]][currentSquare[1]] = true;
     // remove it from the openList
     openList.splice(index,1);
 
-    for(var i = 0; i < closedList.length; i++){
-      // if the destinationSquare were added to the closedList, a path is found!
-      if(closedList[i].equals(destinationSquare)){
-	// and so, we break the loop
-	destination = true;
-        break;
-      }
+    // if currentSquare equals destinationSquare
+    if(currentSquare[0] == destinationSquare[0] &&
+       currentSquare[1] == destinationSquare[1]){
+      // and so, we break the loop
+      destination = true;
+      break;
     }
 
     // if the destinationSquare is not reach
@@ -97,24 +100,23 @@ function prb83(grid){
       for(var a = 0; a < adjacentSquares.length; a++) {
 	var adjacentSquare = adjacentSquares[a];
 
-        // if the adjacentSquare is already in the closedList
+        // if the adjacentSquare is already visited
         var found = false;
-        for(var i = 0; i < closedList.length; i++){
-          if(closedList[i].equals(adjacentSquare)){
-            found = true;
-            break;
-          }
-        }
+	if(!(typeof grid[adjacentSquare[0]] == 'undefined' ||
+	   typeof grid[adjacentSquare[0]][adjacentSquare[1]] == 'undefined')) {
+	  if(visited[adjacentSquare[0]][adjacentSquare[1]] == true){
+	    found = true;
+	  }
+	}
 
 	// ... go to next adjacentSquare
-        //if(closedList.has(adjacentSquare)){ continue; }
         if(found){ continue; }
 
 	// if this adjacentSquare is not in the openList
-        //if(!openList.has(adjacentSquare))
         var found = false;
         for(var i = 0; i < openList.length; i++){
-          if(openList[i].equals(adjacentSquare)){
+          if(openList[i][0] == adjacentSquare[0] &&
+	     openList[i][1] == adjacentSquare[1]){
             found = true;
             break;
           }
@@ -124,25 +126,14 @@ function prb83(grid){
 	  // prevent case neighbour does not exist
 	  if(!(typeof grid[adjacentSquare[0]] == 'undefined' ||
 	     typeof grid[adjacentSquare[0]][adjacentSquare[1]] == 'undefined')) {
-	    previous[adjacentSquare[0]][adjacentSquare[1]] = currentSquare;
+	    previous[adjacentSquare[0]][adjacentSquare[1]] = gScore(currentSquare, adjacentSquare);
 	    // and add it to the openList
             openList.push(adjacentSquare);
-	  }
-        } else {
-	  // if is already in openList
-          // test if using the current gScore make the aSquare gScore lower
-	  var aSquare_gScore = gScore(adjacentSquare);
-	  // The G score is equal to the current G score + the cost of the adjacentSquare
-	  var current_gScore = gScore(currentSquare) + grid[adjacentSquare[0]][adjacentSquare[1]];
-
-	  if(current_gScore < aSquare_gScore) {
-            // if yes update the parent because it means it's a better path!
-	    previous[adjacentSquare[0]][adjacentSquare[1]] = currentSquare;
 	  }
         }
       }
     }
   }
 
-  return gScore(destinationSquare);
+  return previous[destinationSquare[0]][destinationSquare[1]];
 }

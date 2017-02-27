@@ -15,24 +15,13 @@
 // introduction to pathfinding: https://www.raywenderlich.com/4946/introduction-to-a-pathfinding
 // things about A* algorithm: https://en.wikipedia.org/wiki/A*_search_algorithm
 
-function prb83(input){
-  //var grid = input.split('\n').map(x => x.split(','));
-  //grid.pop();
-  //for(var i=0; i<grid.length; i++){
-  //  for(var j=0; j<grid[i].length; j++){
-  //    grid[i][j] = parseInt(grid[i][j]);
-  //  }
-  //}
-
-  // Grid example
-  var grid = [[131, 673, 234, 103,  18],
-              [201,  96, 342, 965, 150],
-              [630, 803, 746, 422, 111],
-              [537, 699, 497, 121, 956],
-              [805, 732, 524,  37, 331]];
-
+function prb83(grid){
   var start = [0,0];
   var destinationSquare = [grid[0].length-1, grid.length-1];
+  var destination = false;
+
+  var openList = [];
+  var closedList = [];
 
   // should be an array with the same length of grid
   var previous = [[]];
@@ -41,8 +30,6 @@ function prb83(input){
   }
   previous[0][0] = start;
 
-  var openList = [];
-  var closedList = [];
   openList.push(start);
 
   var neighbours = function([i,j]){
@@ -65,8 +52,6 @@ function prb83(input){
 
     return grid[coord[0]][coord[1]] + gScore(previous[coord[0]][coord[1]]);
   }
-
-  var destination = false;
 
   while(openList.length != 0 && destination == false){
     // get the square with the lowest F;
@@ -110,24 +95,26 @@ function prb83(input){
       var adjacentSquares = neighbours(currentSquare);
 
       for(var a = 0; a < adjacentSquares.length; a++) {
+	var adjacentSquare = adjacentSquares[a];
+
         // if the adjacentSquare is already in the closedList
         var found = false;
         for(var i = 0; i < closedList.length; i++){
-          if(closedList[i].equals(adjacentSquares[a])){
+          if(closedList[i].equals(adjacentSquare)){
             found = true;
             break;
           }
         }
 
 	// ... go to next adjacentSquare
-        //if(closedList.has(adjacentSquares[a])){ continue; }
+        //if(closedList.has(adjacentSquare)){ continue; }
         if(found){ continue; }
 
 	// if this adjacentSquare is not in the openList
-        //if(!openList.has(adjacentSquares[a]))
+        //if(!openList.has(adjacentSquare))
         var found = false;
         for(var i = 0; i < openList.length; i++){
-          if(openList[i].equals(adjacentSquares[a])){
+          if(openList[i].equals(adjacentSquare)){
             found = true;
             break;
           }
@@ -135,35 +122,27 @@ function prb83(input){
 
         if(!found){
 	  // prevent case neighbour does not exist
-	  if(!(typeof grid[adjacentSquares[a][0]] == 'undefined' ||
-	     typeof grid[adjacentSquares[a][0]][adjacentSquares[a][1]] == 'undefined')) {
-	    previous[adjacentSquares[a][0]][adjacentSquares[a][1]] = currentSquare;
+	  if(!(typeof grid[adjacentSquare[0]] == 'undefined' ||
+	     typeof grid[adjacentSquare[0]][adjacentSquare[1]] == 'undefined')) {
+	    previous[adjacentSquare[0]][adjacentSquare[1]] = currentSquare;
 	    // and add it to the openList
-            openList.push(adjacentSquares[a]);
+            openList.push(adjacentSquare);
 	  }
         } else {
 	  // if is already in openList
           // test if using the current gScore make the aSquare gScore lower
-	  var aSquare_gScore = gScore(adjacentSquares[a]);
-	  // The G score is equal to the parent G score + the cost to move from the parent to it
-	  var current_gScore = gScore(currentSquare) + grid[adjacentSquares[a][0]][adjacentSquares[a][1]];
+	  var aSquare_gScore = gScore(adjacentSquare);
+	  // The G score is equal to the current G score + the cost of the adjacentSquare
+	  var current_gScore = gScore(currentSquare) + grid[adjacentSquare[0]][adjacentSquare[1]];
 
 	  if(current_gScore < aSquare_gScore) {
             // if yes update the parent because it means it's a better path!
-            console.log('!parent of ' + adjacentSquares[a] + ' is actually ' + currentSquare);
-	    previous[adjacentSquares[a][0]][adjacentSquares[a][1]] = currentSquare;
+	    previous[adjacentSquare[0]][adjacentSquare[1]] = currentSquare;
 	  }
         }
       }
     }
   }
 
-  console.log(gScore(destinationSquare));
-  var cur = destinationSquare;
-  while (!cur.equals(start)) {
-    console.log(previous[cur[0]][cur[1]]);
-    cur = previous[cur[0]][cur[1]];
-  }
-
-  return true;
+  return gScore(destinationSquare);
 }

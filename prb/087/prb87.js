@@ -13,7 +13,8 @@
 function prb87() {
   var target = 50000000,
       primes = eratosthenes(~~(Math.sqrt(target))),
-      tab = {};
+      tab = {},
+      sum = 0;
 
   for (var i = 0; i < primes.length; i++) {
     var i2 = Math.pow(primes[i],2);
@@ -23,12 +24,14 @@ function prb87() {
         var test = Math.pow(primes[i],2) + Math.pow(primes[j],3) + Math.pow(primes[k],4);
 
         if (test < target) {
-          tab[test] = true;
+	  if(!tab[test]) {
+            tab[test] = true;
+	    sum++;
+          }
         }
       }
     }
   }
 
-  var keys = Object.keys(tab);
-  return keys.length;
+  return sum;
 }

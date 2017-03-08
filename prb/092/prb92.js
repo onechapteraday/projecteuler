@@ -16,12 +16,12 @@ function prb92(){
   var sum = 0;
   var cache = {};
 
+  cache[1] = 1;
+  cache[89] = 89;
+
   var squarechain = function(x) {
     if (cache[x])
       return cache[x];
-
-    if (x == 1 || x == 89)
-      return x;
 
     else {
       var digits = ('' + x).split(''),

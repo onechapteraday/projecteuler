@@ -24,11 +24,15 @@ function prb92(){
       return cache[x];
 
     else {
-      var digits = ('' + x).split(''),
-          length = digits.length,
+      var digits = [],
           sum = 0;
 
-      for (var i = 0; i < length; i++) {
+      while(x > 0){
+        digits.push(x % 10);
+        x = ~~(x / 10);
+      }
+
+      for (var i = 0; i < digits.length; i++) {
         sum += Math.pow(digits[i], 2);
       }
 

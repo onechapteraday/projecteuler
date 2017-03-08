@@ -12,29 +12,36 @@
  *
  * How many starting numbers below ten million will arrive at 89? */
 
-function squarechain(x) {
-  if (x == 1 || x == 89)
-    return x;
-
-  else {
-    var digits = ('' + x).split(''),
-    length = digits.length,
-    sum = 0;
-    for (var i = 0; i < length; i++) {
-      sum += Math.pow(digits[i], 2);
-    }
-
-    return squarechain(sum);
-  }
-}
-
 function prb92(){
   var sum = 0;
+  var cache = {};
 
-  for(var i = 1; i < 10000000; i++){
-    var temp = squarechain(i);
-    if(temp==89)
+  var squarechain = function(x) {
+    if (cache[x])
+      return cache[x];
+
+    if (x == 1 || x == 89)
+      return x;
+
+    else {
+      var digits = ('' + x).split(''),
+          length = digits.length,
+          sum = 0;
+
+      for (var i = 0; i < length; i++) {
+        sum += Math.pow(digits[i], 2);
+      }
+
+      return squarechain(sum);
+    }
+  }
+
+  for (var i = 1; i < 10000000; i++){
+    cache[i] = squarechain(i);
+
+    if (cache[i] == 89) {
       sum++;
+    }
   }
 
   return sum;

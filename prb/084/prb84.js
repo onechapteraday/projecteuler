@@ -4,13 +4,13 @@
  *        H2 |      	                                  | C1
  *        T2 |      	                                  | U1
  *        H1 |      	                                  | C2
- *        CH3|	 	                                  | C3
+ *       CH3 |	 	                                  | C3
  *        R4 |      	                                  | R2
  *        G3 |      	                                  | D1
- *        CC3|	 	                                  | CC2
+ *       CC3 |	 	                                  | CC2
  *        G2 |      	                                  | D2
  *        G1 |      	                                  | D3
- *        G2J| F3 | U2 | F2 | F1 | R3 | E3 | E2 | CH2| E1 | FP
+ *       G2J | F3 | U2 | F2 | F1 | R3 | E3 | E2 | CH2| E1 | FP
  *
  * A player starts on the GO square and adds the scores on two 6-sided dice to
  * determine the number of squares they advance in a clockwise direction. Without
@@ -63,10 +63,181 @@
  * JAIL (6.24%) = Square 10, E3 (3.18%) = Square 24, and GO (3.09%) = Square 00. So
  * these three most popular squares can be listed with the six-digit modal string:
  * 102400.
- * 
+ *
  * If, instead of using two 6-sided dice, two 4-sided dice are used, find the
  * six-digit modal string. */
 
 function prb84(){
+  var squares = {
+    'GO'   :  0,
+    'A1'   :  0,
+    'CC1'  :  0,
+    'A2'   :  0,
+    'T1'   :  0,
+    'R1'   :  0,
+    'B1'   :  0,
+    'CH1'  :  0,
+    'B2'   :  0,
+    'B3'   :  0,
+    'JAIL' :  0,
+    'C1'   :  0,
+    'U1'   :  0,
+    'C2'   :  0,
+    'C3'   :  0,
+    'R2'   :  0,
+    'D1'   :  0,
+    'CC2'  :  0,
+    'D2'   :  0,
+    'D3'   :  0,
+    'FP'   :  0,
+    'E1'   :  0,
+    'CH2'  :  0,
+    'E2'   :  0,
+    'E3'   :  0,
+    'R3'   :  0,
+    'F1'   :  0,
+    'F2'   :  0,
+    'U2'   :  0,
+    'F3'   :  0,
+    'G2J'  :  0,
+    'G1'   :  0,
+    'G2'   :  0,
+    'CC3'  :  0,
+    'G3'   :  0,
+    'R4'   :  0,
+    'CH3'  :  0,
+    'H1'   :  0,
+    'T2'   :  0,
+    'H2'   :  0
+  };
+
+  var cc_squares = ['GO', 'JAIL', '', '', '', '', '', '', '', '', '', '', '', '', '', ''];
+  var ch_squares = ['GO', 'JAIL', 'C1', 'E3', 'H2', 'R1', 'Rx', 'Rx', 'Ux', '-3', '', '', '', '', '', ''];
+
+  var dice1 = 0;
+  var dice2 = 0;
+  var doubles = 0;
+  var previous = 0;
+
+  var moves = 100000;
+  var getRandom = function(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  var last_double;
+
+  for (var i = 0; i < moves; i++) {
+    dice1 = getRandom(1,6);
+    dice2 = getRandom(1,6);
+
+    if(dice1 == dice2) {
+      if(last_double == i-1) {
+        doubles += 1;
+      } else {
+	doubles = 0;
+      }
+
+      last_double = i;
+    }
+
+    var current = '';
+
+    if(doubles == 3) {
+      // player goes to jail
+      previous = Object.keys(squares).indexOf('JAIL');
+      current = 'JAIL';
+      doubles = 0;
+    } else {
+      // moves to the 'maybe' square
+      previous += dice1 + dice2;
+
+      // prevent previous to be out of the Monopoly board
+      if (previous > 39) {
+        previous -= 40;
+      }
+
+      current = Object.keys(squares)[previous];
+
+      // if current square equals Chance
+      if (current.startsWith('CH')) {
+        var next = ch_squares[0];
+	ch_squares.shift();
+	ch_squares.push(next);
+
+        if (next != '') {
+	  // go back three squares
+	  if (next == '-3') {
+	    previous -= 3;
+	    current = Object.keys(squares)[previous];
+	  }
+
+	  // go to next Utility
+	  else if (next == 'Ux') {
+	    if(current == 'CH1' || current == 'CH3') {
+	      current = 'U1';
+	    }
+
+	    if(current == 'CH2') {
+	      current = 'U2';
+	    }
+
+	    previous = Object.keys(squares).indexOf(current);
+	  }
+
+	  // go to the next Railway
+	  else if(next == 'Rx') {
+	    if(current == 'CH1') {
+	      current = 'R2';
+	    }
+
+	    if(current == 'CH2') {
+	      current = 'R3';
+	    }
+
+	    if(current == 'CH3') {
+	      current = 'R1';
+	    }
+
+	    previous = Object.keys(squares).indexOf(current);
+	  }
+
+	  else {
+	    current = next;
+	    previous = Object.keys(squares).indexOf(current);
+	  }
+        }
+      }
+
+      // if current square equals Community Chest
+      if (current.startsWith('CC')) {
+        var next = cc_squares[0];
+	cc_squares.shift();
+	cc_squares.push(next);
+
+        if (next != '') {
+	  current = next;
+	  previous = Object.keys(squares).indexOf(next);
+	}
+      }
+
+      // finally if player go on G2J
+      if(current == 'G2J') {
+        // player goes to jail
+        previous = Object.keys(squares).indexOf('JAIL');
+        current = 'JAIL';
+      }
+
+    }
+
+    // go to the next square;
+    squares[current] += 1;
+  }
+
+  var keysSorted = Object.keys(squares).sort(function(a,b){
+    return squares[b] - squares[a]
+  });
+
+  console.log(keysSorted);
+
   return true;
 }

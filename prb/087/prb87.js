@@ -13,7 +13,8 @@
 function prb87() {
   var target = 50000000,
       primes = eratosthenes(~~(Math.sqrt(target))),
-      tab = {},
+      buffer = new ArrayBuffer((target>>3)+1),
+      tab = new Uint8Array(buffer), // now used a TypedArray
       sum = 0;
 
   for (var i = 0; i < primes.length; i++) {
@@ -24,8 +25,8 @@ function prb87() {
         var test = Math.pow(primes[i],2) + Math.pow(primes[j],3) + Math.pow(primes[k],4);
 
         if (test < target) {
-	  if(!tab[test]) {
-            tab[test] = true;
+	  if(!(tab[test>>3] & (1<<(test&7)))) {
+            tab[test>>3] |= 1<<(test&7);
 	    sum++;
           }
         }

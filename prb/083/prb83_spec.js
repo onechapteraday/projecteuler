@@ -1,4 +1,4 @@
-describe('Problem #83 given example function', function(){
+xdescribe('Problem #83 given example function', function(){
   var grid = [[131, 673, 234, 103,  18],
               [201,  96, 342, 965, 150],
               [630, 803, 746, 422, 111],

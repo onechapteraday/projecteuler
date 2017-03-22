@@ -119,7 +119,9 @@ function prb84(){
   var doubles = 0;
   var previous = 0;
 
-  var moves = 100000;
+  var moves = 2000000;
+  var nbFacesDice = 6;
+
   var getRandom = function(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
   }
@@ -127,8 +129,8 @@ function prb84(){
   var last_double;
 
   for (var i = 0; i < moves; i++) {
-    dice1 = getRandom(1,6);
-    dice2 = getRandom(1,6);
+    dice1 = getRandom(1, nbFacesDice + 1);
+    dice2 = getRandom(1, nbFacesDice + 1);
 
     if(dice1 == dice2) {
       if(last_double == i-1) {
@@ -237,6 +239,7 @@ function prb84(){
     return squares[b] - squares[a]
   });
 
+  console.log(squares);
   console.log(keysSorted);
 
   return true;

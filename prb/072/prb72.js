@@ -12,9 +12,26 @@
 
 function prb72(){
   var count = 0,
-      limit = 1000000;
-  for(var n=2; n<=limit; n++){
-    count += phi(n);
+      limit = 1000001,
+      phis = [];
+
+  // initialize array
+  for(var n = 2; n < limit; n++){
+    phis[n] = n;
   }
+
+  for(var n = 2; n < limit; n++){
+    // if n is a prime, for all multiples of n, multiply with (1-1/n)
+    if(phis[n] == n){
+      for(var m = n; m < limit; m += n){
+        phis[m] = phis[m] - Math.floor(phis[m] / n);
+      }
+    }
+  }
+
+  for(var n = 2; n < limit; n++){
+    count += phis[n];
+  }
+
   return count;
 }

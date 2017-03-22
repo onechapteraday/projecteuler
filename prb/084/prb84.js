@@ -67,7 +67,7 @@
  * If, instead of using two 6-sided dice, two 4-sided dice are used, find the
  * six-digit modal string. */
 
-function prb84(){
+function prb84(sides){
   var squares = {
     'GO'   :  0,
     'A1'   :  0,
@@ -119,8 +119,7 @@ function prb84(){
   var doubles = 0;
   var previous = 0;
 
-  var moves = 2000000;
-  var nbFacesDice = 6;
+  var moves = 250000;
 
   var getRandom = function(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
@@ -129,8 +128,8 @@ function prb84(){
   var last_double;
 
   for (var i = 0; i < moves; i++) {
-    dice1 = getRandom(1, nbFacesDice + 1);
-    dice2 = getRandom(1, nbFacesDice + 1);
+    dice1 = getRandom(1, sides + 1);
+    dice2 = getRandom(1, sides + 1);
 
     if(dice1 == dice2) {
       if(last_double == i-1) {
@@ -239,8 +238,14 @@ function prb84(){
     return squares[b] - squares[a]
   });
 
-  console.log(squares);
-  console.log(keysSorted);
+  var result = '';
+  for (var i = 0; i < 3; i++) {
+    var str = '' + Object.keys(squares).indexOf(keysSorted[i]);
+    if (str.length == 1) {
+      str = '0' + str;
+    }
+    result += str;
+  }
 
-  return true;
+  return result;
 }

@@ -13,16 +13,13 @@
 function prb73(){
   var limit = 12000,
       count = 0;
-  for(var a=2; a<=limit; a++){
-    for(var b=a+a; b<=limit; b++){
-      if(gcd(a,b)==1){
-        if(b < 3*a){
-          if(2*a < b){
-            count++;
-          }
-        }
-      }
+  for(var n = 5; n <= limit; n++) {
+    for(var k = Math.floor(n/3) + 1; k <= Math.floor((n - 1) / 2); k++) {
+     if(gcd(n,k) == 1) {
+       count += 1;
+     }
     }
   }
+
   return count;
 }
